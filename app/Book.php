@@ -4,12 +4,30 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Filesystem\Filesystem;
+use Storage;
+use File;
+
 /**
  * Class Book
  * @package App
  */
 class Book extends Model
 {
+    /**
+     */
+    const FILE_COPY = 1;
+
+    /**
+     */
+    const FILE_MOVE = 0;
+
+    /**
+     * The books file system
+     * @var Filesystem
+     */
+    private $filesystem = null;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,6 +36,16 @@ class Book extends Model
     protected $fillable = [
         'title', 'genre_id', 'cover_image', 'isbn', 'publisher', 'file', 'publish_date', 'description', 'user_id',
     ];
+
+    /**
+     * Book constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = array())
+    {
+        parent::__construct($attributes);
+        $this->filesystem = Storage::disk('private');
+    }
 
     /**
      * Return all authors for this book
@@ -36,4 +64,84 @@ class Book extends Model
     {
         return $this->belongsTo('App\Genre');
     }
+
+    /**
+     * Store a book file to the user directory
+     * @param $fromPath
+     * @param int $copyOrMove
+     * @return bool|void
+     */
+    public function storeBookFile( $fromPath, $copyOrMove = 0 )
+    {
+        $toPath = self::getBookPath( $this->user_id, $this->file );
+
+        //check if the user directory exists before storing, if not create it.
+        if( ! File::isDirectory( self::getUserDirectory( $this->user_id ) ) ){
+            File::makeDirectory( self::getUserDirectory( $this->user_id ) );
+        }
+
+        //if same file already exists
+        if( File::exists( $toPath ) ) {
+            return false;
+        }
+
+        if( $copyOrMove === self::FILE_COPY ) {
+            return File::copy( $fromPath,  $toPath );
+        }
+
+        return File::move( $fromPath,  $toPath );
+    }
+
+    /**
+     * Returns The book size
+     * @return int
+     */
+    public function getBookFileSize()
+    {
+        $bookPath = self::getBookPath( $this->user_id, $this->file );
+        $size = File::size( $bookPath );
+        return $size;
+    }
+
+
+    /**
+     * Return the user directory private path
+     * @param $userID integer
+     * @return string
+     */
+    public static function getUserDirectory( $userID )
+    {
+        return storage_path('app/private') . '/' . (string)$userID . '/';
+    }
+
+    /**
+     * Return the user file private path
+     * @param $userID
+     * @param $fileName
+     * @return string
+     */
+    public static function getBookPath( $userID, $fileName )
+    {
+        return self::getUserDirectory( $userID ) . $fileName;
+    }
+
+    /**
+     * Creates new model into the database
+     * 
+     * @param $bookFilePath
+     * @param array $attributes
+     * @param int $copyOrMove
+     * @return bool|static
+     */
+    public static function createBook($bookFilePath, array $attributes = [], $copyOrMove = 0)
+    {
+        $book = self::create($attributes);
+
+        if( $book ) {
+            $book->storeBookFile( $bookFilePath, $copyOrMove );
+            return $book;
+        }
+        return false;
+    }
+
 }

@@ -18,7 +18,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('assets/css/skins/skin-green-light.css') }} ">
 
-    <link rel="stylesheet" href="{{ asset('assets/resources/iCheck/all.css') }} ">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }} ">
 
     @yield('head')
 

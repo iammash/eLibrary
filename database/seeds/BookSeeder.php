@@ -12,7 +12,7 @@ class BookSeeder extends Seeder
      */
     public function run()
     {
-        Book::create([
+        Book::createBook( self::getDemoDataDirectory('1181818183.pdf'), [
             'id' => 1,
             'title' => 'Introduction to Algorithms',
             'genre_id' => 5,
@@ -22,9 +22,9 @@ class BookSeeder extends Seeder
             'description' => 'Introduction to Algorithms is a book by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.',
             'file' => '1181818183.pdf',
             'user_id' => 1,
-        ]);
+        ], Book::FILE_COPY);
 
-        Book::create([
+        Book::createBook( self::getDemoDataDirectory('2343928492.pdf'), [
             'id' => 2,
             'title' => 'Artificial Intelligence: A Modern Approach',
             'genre_id' => 5,
@@ -34,9 +34,9 @@ class BookSeeder extends Seeder
             'description' => 'Artificial Intelligence: A Modern Approach is a university textbook on artificial intelligence, written by Stuart J. Russell and Peter Norvig. The third edition of the book was released 11 December 2009',
             'file' => '2343928492.pdf',
             'user_id' => 1,
-        ]);
+        ], Book::FILE_COPY);
 
-        Book::create([
+        Book::createBook( self::getDemoDataDirectory('3248932432.pdf'), [
             'id' => 3,
             'title' => 'Fundamentals of Database Systems',
             'genre_id' => 5,
@@ -46,9 +46,9 @@ class BookSeeder extends Seeder
             'description' => 'Clear explanations of theory and design, broad coverage of models and real systems, and an up-to-date introduction to modern database technologies result in a leading introduction to database systems.',
             'file' => '3248932432.pdf',
             'user_id' => 1,
-        ]);
+        ], Book::FILE_COPY);
 
-        Book::create([
+        Book::createBook( self::getDemoDataDirectory('3249324823.pdf'), [
             'id' => 4,
             'title' => 'The Mythical Man-Month',
             'genre_id' => 5,
@@ -58,9 +58,9 @@ class BookSeeder extends Seeder
             'description' => 'The Mythical Man-Month: Essays on Software Engineering is a book on software engineering and project management by Fred Brooks, whose central theme is that "adding manpower to a late software project makes it later',
             'file' => '3249324823.pdf',
             'user_id' => 1,
-        ]);
+        ], Book::FILE_COPY);
 
-        Book::create([
+        Book::createBook( self::getDemoDataDirectory('9898911919.pdf'), [
             'id' => 5,
             'title' => 'Compilers: Principles, Techniques, and Tools',
             'genre_id' => 5,
@@ -70,6 +70,14 @@ class BookSeeder extends Seeder
             'description' => 'Compilers: Principles, Techniques, and Tools is a computer science textbook by Alfred V. Aho, Monica S. Lam, Ravi Sethi, and Jeffrey D. Ullman about compiler construction.',
             'file' => '9898911919.pdf',
             'user_id' => 1,
-        ]);
+        ], Book::FILE_COPY);
+    }
+
+    /**
+     *
+     */
+    public static function getDemoDataDirectory( $fileName )
+    {
+        return storage_path('app/private') . '/DemoData/' . $fileName;
     }
 }
