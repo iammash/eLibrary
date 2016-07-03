@@ -15,12 +15,19 @@ use File;
 class Book extends Model
 {
     /**
+     * Constant used to determine the file should be moved or copied
      */
     const FILE_COPY = 1;
 
     /**
+     * Constant used to determine the file should be moved or copied
      */
     const FILE_MOVE = 0;
+
+    /**
+     * Constant used to determine if file size is printed in pretty format
+     */
+    const FILESIZE_PRETTY_FORMAT = 1;
 
     /**
      * The books file system
@@ -96,10 +103,22 @@ class Book extends Model
      * Returns The book size
      * @return int
      */
-    public function getBookFileSize()
+    public function getBookFileSize( $pretty_format = 0 )
     {
         $bookPath = self::getBookPath( $this->user_id, $this->file );
         $size = File::size( $bookPath );
+
+        if( $pretty_format === self::FILESIZE_PRETTY_FORMAT ){
+
+            $units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
+
+            for ($i = 0; $size > 1024; $i++) {
+                $size /= 1024;
+            }
+
+            return round($size, 2) . ' ' . $units[$i];
+        }
+
         return $size;
     }
 
