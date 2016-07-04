@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('pagetitle')
+    Edit Book
+@endsection
+
 @section('content')
     <div class="box">
         <div class="box-header with-border">

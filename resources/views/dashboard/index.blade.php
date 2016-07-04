@@ -1,5 +1,10 @@
 @extends('layouts.dashboard')
 
+@section('pagetitle')
+    Welcome!
+    <small>Howdy {{ $user->firstname }}?</small>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">

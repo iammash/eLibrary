@@ -1,5 +1,10 @@
 @extends('layouts.dashboard')
 
+@section('pagetitle')
+    Add New Book
+    <small>Upload Book</small>
+@endsection
+
 @section('content')
     <div class="box">
         <div class="box-header with-border">

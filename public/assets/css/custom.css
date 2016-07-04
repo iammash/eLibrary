@@ -2,3 +2,8 @@
     font-size: 46px;
     color: #dd4b39;
 }
+
+.with-margin-top-bottom{
+    margin-top:15px;
+    margin-bottom:15px;
+}

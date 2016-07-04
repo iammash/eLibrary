@@ -11,9 +11,10 @@ class DashboardController extends AuthenticatedController
 {
     public function index()
     {
+        $user         = $this->user;
         $totalbooks   =  Book::where('user_id', '=', $this->user->id)->count();
-        $recentbooks  =  Book::where('user_id', '=', $this->user->id)->orderBy('created_at','desc')->take(3)->get();
-        return view('dashboard.index', compact('recentbooks', 'totalbooks'));
+        $recentbooks  =  $user->books()->orderBy('created_at','desc')->take(3)->get();
+        return view('dashboard.index', compact('recentbooks', 'totalbooks', 'user'));
     }
 
     public function settings()

@@ -4,13 +4,18 @@
     <link rel="stylesheet" href="{{ asset('assets/resources/datatables/dataTables.bootstrap.css') }}">
 @endsection
 
+@section('pagetitle')
+    Books
+    <small>Showing all user's books</small>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-sm-6">
 
     </div>
     <div class="col-sm-6">
-        <a class="btn btn-primary"><i class="fa fa-plus"></i> Create New</a>
+        <a class="btn btn-primary pull-right with-margin-top-bottom"><i class="fa fa-plus"></i> Create New</a>
     </div>
 </div>
 <div class="row">
@@ -37,9 +42,9 @@
                         <td class="text-center">{{$book->genre()->getResults()->title}}</td>
                         <td class="text-center">{{$book->created_at}}</td>
                         <td class="text-center">
-                            <a href="{{ route('dashboard.books.edit', ['book_id' => $book->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                            <a href="{{ route('dashboard.books.view', ['book_id' => $book->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
                             <a href="{{ route('dashboard.books.edit', ['book_id' => $book->id]) }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                            <a href="{{ route('dashboard.books.edit', ['book_id' => $book->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</a>
+                            <a href="{{ route('dashboard.books.delete', ['book_id' => $book->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</a>
                         </td>
                     </tr>
                     @endforeach
