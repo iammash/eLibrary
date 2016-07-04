@@ -34,9 +34,19 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['web', 'auth']], functi
             'uses' => 'BooksController@add'
         ]);
 
-        Route::get('/edit/{document_id}',[
+        Route::get('/edit/{book_id}',[
             'as' => 'dashboard.books.edit',
             'uses' => 'BooksController@edit'
+        ]);
+
+        Route::get('/view/{book_id}',[
+            'as' => 'dashboard.books.view',
+            'uses' => 'BooksController@view'
+        ]);
+
+        Route::get('/delete/{book_id}',[
+            'as' => 'dashboard.books.delete',
+            'uses' => 'BooksController@delete'
         ]);
 
     });
