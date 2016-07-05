@@ -9,6 +9,14 @@
     <small>Showing all user's books</small>
 @endsection
 
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ route('dashboard.books.index') }}">Books</a></li>
+        <li class="active">List of Books</li>
+    </ol>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-sm-6">

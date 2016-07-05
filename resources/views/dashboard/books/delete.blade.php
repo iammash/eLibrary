@@ -1,15 +1,14 @@
 @extends('layouts.dashboard')
 
 @section('pagetitle')
-    Add New Book
-    <small>Upload Book</small>
+    Delete Book
 @endsection
 
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{{ route('dashboard.books.index') }}">Books</a></li>
-        <li class="active">Book Add</li>
+        <li class="active">Book Delete</li>
     </ol>
 @endsection
 

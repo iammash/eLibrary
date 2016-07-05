@@ -5,6 +5,12 @@
     <small>Howdy {{ $user->firstname }}?</small>
 @endsection
 
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li class="active"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
