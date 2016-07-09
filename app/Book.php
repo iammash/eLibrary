@@ -144,20 +144,47 @@ class Book extends Model
         return self::getUserDirectory( $userID ) . $fileName;
     }
 
+
+    /**
+     * Generate new unique file name for the book
+     *
+     * @param $extension
+     * @return string
+     */
+    public static function generateFileName( $extension )
+    {
+        $random = str_random(10).'.'.$extension;
+        $exists = self::where('file', '=', $random)->count();
+        if( $exists > 0 ){
+            return self::generateFileName( $extension );
+        }
+        return $random;
+    }
+
+
+
     /**
      * Creates new model into the database
      * 
      * @param $bookFilePath
      * @param array $attributes
-     * @param int $copyOrMove
+     * @param int $move
      * @return bool|static
      */
-    public static function createBook($bookFilePath, array $attributes = [], $copyOrMove = 0)
+    public static function createBook($bookFilePath, array $attributes = [], $move = 0)
     {
+        if(!isset($attributes['file'])){
+            $attributes['file'] = self::generateFileName('pdf');
+        }
+
+        if(!File::exists($bookFilePath)){
+            return false;
+        }
+
         $book = self::create($attributes);
 
         if( $book ) {
-            $book->storeBookFile( $bookFilePath, $copyOrMove );
+            $book->storeBookFile( $bookFilePath, $move );
             return $book;
         }
         return false;

@@ -119,7 +119,8 @@
                                                 <small class="pull-right">20%</small>
                                             </h3>
                                             <div class="progress xs">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">20% Complete</span>
                                                 </div>
                                             </div>
@@ -217,7 +218,8 @@
                     </ul>
                 </li>
                 <li class="header">OTHER</li>
-                <li {!! (\Route::is('dashboard.settings') ? 'class="active"' : '') !!}><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Settings</span></a></li>
+                <li {!! (\Route::is('dashboard.settings') ? 'class="active"' : '') !!}><a href="#"><i class="fa fa-circle-o text-red"></i>
+                        <span>Settings</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -237,6 +239,41 @@
 
         <!-- Main content -->
         <section class="content">
+            @if(\Session::has('form_response') || count( $errors->all() ) > 0)
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                    <?php $object = json_decode(\Session::get('form_response')); ?>
+                    @if( (isset( $object->type ) && isset( $object->message )) )
+                        <div class="alert alert-{{ $object->type }}">
+                            <h5>
+                                @if($object->type == 'danger')
+                                    <strong>Error!</strong>
+                                @else
+                                    <strong>{{ ucfirst( $object->type ) }}!</strong>
+                                @endif
+                                {{ $object->message }}
+                            </h5>
+                            @if(isset( $object->list ) && count( $object->list ) > 0 )
+                                <ul class="errors">
+                                    @foreach($object->list as $o)
+                                        <li>{{$o}}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    @else
+                        <div class="alert alert-danger">
+                            <h5><strong>Error!</strong> Please correct the following errors:</h5>
+                            <ul class="errors">
+                                @foreach($errors->all() as $o)
+                                    <li>{{$o}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            @endif
             @yield('content')
         </section>
         <!-- /.content -->
@@ -253,9 +290,8 @@
 <script src="{{ asset('assets/resources/jQuery/jQuery-2.2.0.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('assets/resources/iCheck/icheck.min.js') }}"></script>
-<!-- Vue 1.0.24 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.js"></script>
-<script type="text/javascript" src="{{ asset('app/app.js') }}"></script>
+<!-- Genral js -->
+<script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('assets/resources/bootstrap/js/bootstrap.min.js') }}" ></script>
 <!-- SlimScroll -->

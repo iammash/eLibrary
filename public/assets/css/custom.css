@@ -7,3 +7,12 @@
     margin-top:15px;
     margin-bottom:15px;
 }
+
+.errors{
+    padding-left: 26px;
+}
+
+.alert h5{
+    font-size: 15px;
+    margin: 0;
+}

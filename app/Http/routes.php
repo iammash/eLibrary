@@ -10,7 +10,7 @@ Route::auth();
  * Dashboard management
  * dashboard/users/route_action
  */
-Route::group(['prefix' => '/dashboard', 'middleware' => ['web', 'auth']], function () {
+Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function () {
 
     Route::get('/', [
         'as' => 'dashboard.index',
@@ -32,6 +32,16 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['web', 'auth']], functi
         Route::get('/add', [
             'as' => 'dashboard.books.add',
             'uses' => 'BooksController@add'
+        ]);
+
+        Route::post('/create', [
+            'as' => 'dashboard.books.create',
+            'uses' => 'BooksController@create'
+        ]);
+
+        Route::post('/{book_id}/update', [
+            'as' => 'dashboard.books.update',
+            'uses' => 'BooksController@update'
         ]);
 
         Route::get('/edit/{book_id}',[

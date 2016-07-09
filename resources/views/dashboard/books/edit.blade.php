@@ -15,15 +15,11 @@
 @section('content')
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Title</h3>
+            <h3 class="box-title">Editing book "{{ $book->title }}"</h3>
         </div>
         <div class="box-body">
-            to be added.
+            @include('dashboard.books.forms.upload', ['genres' => $genres, 'user_id' => $user->id, 'book' => $book])
         </div>
         <!-- /.box-body -->
-        <div class="box-footer">
-            Footer
-        </div>
-        <!-- /.box-footer-->
     </div>
 @endsection
