@@ -68,4 +68,13 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
 
 });
 
+Route::group(['prefix' => '/user_files', 'middleware' => [ 'auth' ] ], function () {
+
+    Route::get('/{user_id}/{file_id}',[
+        'as' => 'user_files.show',
+        'uses' => 'RestrictedFilesController@show'
+    ]);
+
+});
+
 Route::get('/home', 'HomeController@index');

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Storage;
 use File;
+use Auth;
 
 /**
  * Class Book
