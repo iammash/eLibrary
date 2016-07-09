@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Response;
 use App\Book;
+use League\Flysystem\File;
 
 class RestrictedFilesController extends AuthenticatedController
 {
@@ -28,12 +29,21 @@ class RestrictedFilesController extends AuthenticatedController
             $canDownload = false;
         }
 
-        if( $canDownload ){
+        if( $canDownload )
+        {
             $storagePath = storage_path('app/private/' . $user_id . '/' . $file_name);
-            return response()->download($storagePath);
-        } else {
-            return redirect()->back();
+
+            if( file_exists( $storagePath ) )
+            {
+                //Send the file to console once authorized
+                $file_contents = file_get_contents( $storagePath );
+                return response()->make($file_contents, 200, [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="'.$file_name.'"'
+                ] );
+            }
         }
 
+        return redirect()->back();
     }
 }

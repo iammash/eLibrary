@@ -74,6 +74,14 @@ class Book extends Model
     }
 
     /**
+     * Get the user that uploaded this book
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * Store a book file to the user directory
      * @param $fromPath
      * @param int $copyOrMove

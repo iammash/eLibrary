@@ -70,7 +70,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
 
 Route::group(['prefix' => '/user_files', 'middleware' => [ 'auth' ] ], function () {
 
-    Route::get('/{user_id}/{file_id}',[
+    Route::get('/{user_id}/{file_name}',[
         'as' => 'user_files.show',
         'uses' => 'RestrictedFilesController@show'
     ]);

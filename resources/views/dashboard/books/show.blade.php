@@ -15,14 +15,20 @@
 @section('content')
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Title</h3>
+            <h3 class="box-title">Read eBook</h3>
         </div>
         <div class="box-body">
-            to be added.
+            <iframe width="100%" height="800px"
+                    src="{{ route('user_files.show', ['user_id' => $book->user()->first()->id, 'file_name' => $book->file ]) }}"></iframe>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            Footer
+            <span class="pull-left">
+                Uploaded by <strong>{{ $book->user()->first()->firstname }}</strong>
+            </span>
+            <span class="pull-right">
+                Uploaded on <strong>{{  Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $book->created_at )->format('Y-m-d') }}</strong>
+            </span>
         </div>
         <!-- /.box-footer-->
     </div>

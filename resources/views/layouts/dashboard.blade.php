@@ -30,7 +30,7 @@
     <![endif]-->
 </head>
 <!-- ADD THE CLASS layout-boxed TO GET A BOXED LAYOUT -->
-<body class="hold-transition skin-green-light layout-boxed sidebar-mini">
+<body class="hold-transition skin-green-light layout sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
