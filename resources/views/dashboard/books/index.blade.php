@@ -49,10 +49,17 @@
                         <td>{{$book->title}}</td>
                         <td class="text-center">{{$book->genre()->getResults()->title}}</td>
                         <td class="text-center">{{$book->created_at}}</td>
-                        <td class="text-center">
-                            <a href="{{ route('dashboard.books.view', ['book_id' => $book->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
-                            <a href="{{ route('dashboard.books.edit', ['book_id' => $book->id]) }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                            <a href="{{ route('dashboard.books.delete', ['book_id' => $book->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</a>
+                        <td class="text-center" width="10%">
+                            <div class="dropdown">
+                                <button class="btn btn-flat btn-info dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
+                                <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('dashboard.books.view', ['book_id' => $book->id]) }}">View</a></li>
+                                    <li><a href="{{ route('dashboard.books.edit', ['book_id' => $book->id]) }}">Edit</a></li>
+                                    <li><a class="text-red" href="{{ route('dashboard.books.delete', ['book_id' => $book->id]) }}">Delete</a></li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

@@ -296,8 +296,6 @@
 <script src="{{ asset('assets/resources/bootstrap/js/bootstrap.min.js') }}" ></script>
 <!-- SlimScroll -->
 <script src="{{ asset('assets/resources/fastclick/fastclick.js') }}"></script>
-<!-- FastClick -->
-<script src="{{ asset('assets/resources/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
