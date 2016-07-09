@@ -16,7 +16,7 @@ class BooksController extends AuthenticatedController
 {
 
     /**
-     * Load the book index page
+     * Renders the book index page
      * @return mixed
      */
     public function index()
@@ -27,7 +27,7 @@ class BooksController extends AuthenticatedController
     }
 
     /**
-     * Load the Add book page
+     * Renders the Add book page
      * @return mixed
      */
     public function add()
@@ -36,6 +36,53 @@ class BooksController extends AuthenticatedController
         $user   = $this->user;
         return view('dashboard.books.add', compact('user', 'genres'));
     }
+
+
+    /**
+     * Renders the edit resource page
+     *
+     * @param $book_id
+     * @return mixed
+     */
+    public function edit( $book_id )
+    {
+        $genres = Genre::all();
+        $book = Book::find( $book_id );
+        $user = $this->user;
+        return view('dashboard.books.edit', compact('book', 'genres', 'user'));
+    }
+
+    /**
+     * Renders the view resource page
+     *
+     * @param $book_id
+     * @return mixed
+     */
+    public function view( $book_id )
+    {
+        $book = Book::find( $book_id );
+        return view('dashboard.books.show', compact('book'));
+    }
+
+    /**
+     * Renders the delete resource page
+     *
+     * @param $book_id
+     * @return mixed
+     */
+    public function delete( $book_id )
+    {
+        $book = Book::where( 'id', '=', $book_id )->where('user_id', '=', $this->user->id)->first();
+        $user = $this->user;
+
+        if(  null === $book ){
+            Session::flash('form_response', json_encode(['type' => 'danger', 'message' => "You don't have access to remove this item."]));
+            return redirect()->back();
+        }
+
+        return view('dashboard.books.delete', compact('book', 'user'));
+    }
+
 
     /**
      * Handles the post request for updating existing book
@@ -97,36 +144,33 @@ class BooksController extends AuthenticatedController
         }
     }
 
-
     /**
-     * @param $book_id
+     * Handles removing resource from the database
+     *
+     * @param Requests\DeleteBookRequest $request
      * @return mixed
      */
-    public function edit( $book_id )
+    public function remove( Requests\DeleteBookRequest $request )
     {
-        $genres = Genre::all();
-        $book = Book::find( $book_id );
-        $user = $this->user;
-        return view('dashboard.books.edit', compact('book', 'genres', 'user'));
+        $user_id = $request->user()->id;
+        $book_id = $request->get('book_id');
+        $book    = Book::find( $book_id );
+
+        $deleted = $book->delete();
+
+        if( $deleted || null === $deleted )
+        {
+            return redirect(route('dashboard.index'))->with('form_response', json_encode([
+                'type' => 'success',
+                'message' => 'Book deleted successfully.'
+            ]));
+        }
+
+        return redirect()->back()->with('form_response', json_encode([
+            'type' => 'danger',
+            'message' => 'Book can not be deleted.'
+        ]));
+
     }
 
-    /**
-     * @param $book_id
-     * @return mixed
-     */
-    public function view( $book_id )
-    {
-        $book = Book::find( $book_id );
-        return view('dashboard.books.show', compact('book'));
-    }
-
-    /**
-     * @param $book_id
-     * @return mixed
-     */
-    public function delete( $book_id )
-    {
-        $book = Book::find( $book_id );
-        return view('dashboard.books.delete', compact('book'));
-    }
 }

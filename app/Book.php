@@ -99,6 +99,23 @@ class Book extends Model
         return File::move( $fromPath,  $toPath );
     }
 
+
+    /**
+     * Overload the method to remove the book - completely with its files.
+     *
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        $isDeleted = parent::delete();
+        if( null === $isDeleted || true === $isDeleted )
+        {
+            File::delete( self::getBookPath( $this->user_id, $this->file ) );
+        }
+        return $isDeleted;
+    }
+
     /**
      * Returns The book size
      * @return int

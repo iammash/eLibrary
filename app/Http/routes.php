@@ -59,6 +59,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
             'uses' => 'BooksController@delete'
         ]);
 
+        Route::post('/remove', [
+            'as' => 'dashboard.books.request.remove',
+            'uses' => 'BooksController@remove'
+        ]);
+
     });
 
 });
