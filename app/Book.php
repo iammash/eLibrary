@@ -271,8 +271,7 @@ class Book extends Model
         }
 
         if( $doWhat === 'delete' ){
-            return $query->where('user_library.access', '=', Library::ACCESS_WRITE)
-                ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
+            return $query->where('user_library.access', '=', Library::ACCESS_DELETE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
                 ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
                 ->exists();
