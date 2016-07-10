@@ -12,8 +12,9 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('dashboard.books.index') }}">Books</a></li>
-        <li class="active">List of Books</li>
+        <li><a href="{{ route('dashboard.libraries.index') }}">Libraries</a></li>
+        <li><a href="{{ route('dashboard.libraries.view', ['library_id' => $library->id ] ) }}">{{ $library->name }}</a></li>
+        <li class="active"><a href="{{ route('dashboard.libraries.books.index', ['library_id' => $library->id] ) }}">List of Books</a></li>
     </ol>
 @endsection
 
@@ -55,9 +56,21 @@
                                 <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ route('dashboard.books.view', ['book_id' => $book->id]) }}">View</a></li>
-                                    <li><a href="{{ route('dashboard.books.edit', ['book_id' => $book->id]) }}">Edit</a></li>
-                                    <li><a class="text-red" href="{{ route('dashboard.books.delete', ['book_id' => $book->id]) }}">Delete</a></li>
+                                    @if( App\Book::userCan('view', $user->id, $library->id, $book->id ) )
+                                    <li>
+                                        <a href="{{ route('dashboard.libraries.books.view', ['library_id' => $library->id, 'book_id' => $book->id]) }}">View</a>
+                                    </li>
+                                    @endif
+                                    @if( App\Book::userCan('edit', $user->id, $library->id, $book->id ) )
+                                    <li>
+                                        <a href="{{ route('dashboard.libraries.books.edit', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Edit</a>
+                                    </li>
+                                     @endif
+                                     @if( App\Book::userCan('delete', $user->id, $library->id, $book->id ) )
+                                    <li>
+                                        <a class="text-red" href="{{ route('dashboard.libraries.books.delete', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Delete</a>
+                                    </li>
+                                     @endif
                                 </ul>
                             </div>
                         </td>

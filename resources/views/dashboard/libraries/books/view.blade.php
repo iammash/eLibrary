@@ -7,8 +7,16 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('dashboard.books.index') }}">Books</a></li>
-        <li class="active">Book Information</li>
+        <li><a href="{{ route('dashboard.libraries.index') }}">Libraries</a></li>
+        <li>
+            <a href="{{ route('dashboard.libraries.view', ['library_id' => $library->id ] ) }}">{{ $library->name }}</a>
+        </li>
+        <li>
+            <a href="{{ route('dashboard.libraries.books.index', ['library_id' => $library->id] ) }}">List of Books</a>
+        </li>
+        <li class="active">
+            <a href="{{ route('dashboard.libraries.books.view', ['library_id' => $library->id, 'book_id' => $book->id] ) }}">{{ $book->title }}</a>
+        </li>
     </ol>
 @endsection
 

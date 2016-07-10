@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Storage;
 use File;
-use Auth;
+use DB;
 
 /**
  * Class Book
@@ -221,6 +221,71 @@ class Book extends Model
             $book->storeBookFile( $bookFilePath, $move );
             return $book;
         }
+        return false;
+    }
+
+
+    /**
+     * Control access of the library
+     * 
+     * @param $doWhat
+     * @param $user_id
+     * @param $library_id
+     * @param null $book_id
+     * @return bool
+     */
+    public static function userCan($doWhat, $user_id, $library_id, $book_id = null)
+    {
+        if( $doWhat !== 'create' && $book_id === null){
+            return false;
+        }
+
+        $query = DB::table('user_library')->select('*')
+            ->join( 'books', 'user_library.user_id', '=', 'books.user_id')
+            ->where('user_library.user_id', '=', $user_id)
+            ->where('user_library.library_id', '=', $library_id);
+
+        if( $book_id !== null ) {
+            $query->where('books.id', '=', $book_id);
+        }
+        
+        if( ! $query->exists() ){
+            return false;
+        }
+
+        if( $doWhat === 'view' ){
+            return $query->where('user_library.access', '=', Library::ACCESS_READ)
+                ->orWhere('user_library.access', '=', Library::ACCESS_WRITE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
+                ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
+                ->exists();
+        }
+
+        if( $doWhat === 'edit' ){
+            return $query->where('user_library.access', '=', Library::ACCESS_WRITE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
+                ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
+                ->exists();
+        }
+
+        if( $doWhat === 'delete' ){
+            return $query->where('user_library.access', '=', Library::ACCESS_WRITE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
+                ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
+                ->exists();
+        }
+
+        if( $doWhat === 'create' ){
+            return $query->where('user_library.access', '=', Library::ACCESS_WRITE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
+                ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
+                ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
+                ->exists();
+        }
+        
         return false;
     }
 

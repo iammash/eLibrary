@@ -22,47 +22,77 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
         'uses' => 'DashboardController@settings',
     ]);
 
-    Route::group(['prefix' => '/books'], function () {
+    Route::group(['prefix' => '/libraries'], function () {
 
         Route::get('/', [
-            'as' => 'dashboard.books.index',
-            'uses' => 'BooksController@index'
+            'as' => 'dashboard.libraries.index',
+            'uses' => 'LibraryController@index'
         ]);
 
-        Route::get('/add', [
-            'as' => 'dashboard.books.add',
-            'uses' => 'BooksController@add'
+        Route::get('/new', [
+            'as' => 'dashboard.libraries.new',
+            'uses' => 'LibraryController@makeNew'
         ]);
 
-        Route::post('/create', [
-            'as' => 'dashboard.books.create',
-            'uses' => 'BooksController@create'
+        Route::get('/{library_id}/edit',[
+            'as' => 'dashboard.libraries.edit',
+            'uses' => 'LibraryController@edit'
         ]);
 
-        Route::post('/{book_id}/update', [
-            'as' => 'dashboard.books.update',
-            'uses' => 'BooksController@update'
+        Route::get('/{library_id}/view',[
+            'as' => 'dashboard.libraries.view',
+            'uses' => 'LibraryController@view'
         ]);
 
-        Route::get('/edit/{book_id}',[
-            'as' => 'dashboard.books.edit',
-            'uses' => 'BooksController@edit'
+        Route::get('/{library_id}/delete',[
+            'as' => 'dashboard.libraries.delete',
+            'uses' => 'LibraryController@delete'
         ]);
 
-        Route::get('/view/{book_id}',[
-            'as' => 'dashboard.books.view',
-            'uses' => 'BooksController@view'
-        ]);
+        Route::group(['prefix' => '/{library_id}/books'], function () {
 
-        Route::get('/delete/{book_id}',[
-            'as' => 'dashboard.books.delete',
-            'uses' => 'BooksController@delete'
-        ]);
+            Route::get('/', [
+                'as' => 'dashboard.libraries.books.index',
+                'uses' => 'BooksController@index'
+            ]);
 
-        Route::post('/remove', [
-            'as' => 'dashboard.books.request.remove',
-            'uses' => 'BooksController@remove'
-        ]);
+            Route::get('/add', [
+                'as' => 'dashboard.libraries.books.add',
+                'uses' => 'BooksController@add'
+            ]);
+
+            Route::post('/create', [
+                'as' => 'dashboard.libraries.books.create',
+                'uses' => 'BooksController@create'
+            ]);
+
+            Route::post('/{book_id}/update', [
+                'as' => 'dashboard.libraries.books.update',
+                'uses' => 'BooksController@update'
+            ]);
+
+            Route::get('/edit/{book_id}',[
+                'as' => 'dashboard.libraries.books.edit',
+                'uses' => 'BooksController@edit'
+            ]);
+
+            Route::get('/view/{book_id}',[
+                'as' => 'dashboard.libraries.books.view',
+                'uses' => 'BooksController@view'
+            ]);
+
+            Route::get('/delete/{book_id}',[
+                'as' => 'dashboard.libraries.books.delete',
+                'uses' => 'BooksController@delete'
+            ]);
+
+            Route::post('/remove', [
+                'as' => 'dashboard.libraries.books.request.remove',
+                'uses' => 'BooksController@remove'
+            ]);
+
+
+        });
 
     });
 

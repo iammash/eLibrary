@@ -13,6 +13,12 @@ class Library extends Model
     const ACCESS_MANAGER   = 'MANAGER';
     const ACCESS_OWNER     = 'OWNER';
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'id', 'name', 'description'
     ];
@@ -36,7 +42,42 @@ class Library extends Model
      */
     public function books()
     {
-        return $this->belongsToMany('App\Book');
+        return $this->hasMany('App\Book');
+    }
+
+    /**
+     * Returns the access meaning
+     *
+     * @param $r
+     * @return string
+     */
+    public static function accessName( $r )
+    {
+        if( $r === self::ACCESS_SUSPENDED ){
+            return 'Suspended';
+        }
+
+        if( $r === self::ACCESS_MANAGER ){
+            return 'Manager';
+        }
+
+        if( $r === self::ACCESS_WRITE ){
+            return 'Read/Write';
+        }
+
+        if( $r === self::ACCESS_DELETE ){
+            return 'Read/Write/Delete';
+        }
+
+        if( $r === self::ACCESS_READ ){
+            return 'Read';
+        }
+
+        if( $r === self::ACCESS_OWNER ){
+            return 'Owner';
+        }
+
+        return '';
     }
 
 }

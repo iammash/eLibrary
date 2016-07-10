@@ -4,7 +4,9 @@ namespace App\Http\Requests;
 
 use App\Book;
 use App\Http\Requests\Request;
+use App\Library;
 use Auth;
+use DB;
 
 class UpdateBookRequest extends Request
 {
@@ -16,7 +18,12 @@ class UpdateBookRequest extends Request
     public function authorize()
     {
         //this is validated in the rules already
-        return true;
+        $request    = $this->request->all();
+        $user       = Auth::user();
+        $book_id    = $request['book_id'];
+        $library_id = $request['library_id'];
+        
+        return Book::userCan('delete', $user->id, $library_id, $book_id);
     }
 
     /**
@@ -34,7 +41,8 @@ class UpdateBookRequest extends Request
             'book_publish_date' => 'required',
             'book_publisher'    => 'required',
             'book_id'           => 'required|exists:books,id',
-            'user_id'           => 'required|exists:books,user_id'
+            'user_id'           => 'required|exists:books,user_id',
+            'library_id'        => 'required|exists:libraries,id',
         ];
     }
 }

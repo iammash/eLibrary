@@ -37,8 +37,9 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+    public function libraries()
     {
-        return $this->belongsToMany('App\Library');
+        return $this->belongsToMany('App\Library', 'user_library', 'user_id', 'library_id');
     }
+
 }

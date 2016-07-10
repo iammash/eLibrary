@@ -1,5 +1,6 @@
 @if( isset( $book ) )
     <?php
+    $library_id        = $library->id;
     $book_id           = $book->id;
     $book_title        = $book->title;
     $book_description  = $book->description;
@@ -7,22 +8,26 @@
     $book_publisher    = $book->publisher;
     $book_publish_date = $book->publish_date;
     $book_genre        = $book->genre_id;
-    $route_name        = route('dashboard.books.update', ['book_id' => $book_id ]);
+    $route_name        = route('dashboard.libraries.books.update', ['library_id' => $library->id, 'book_id' => $book_id ]);
     ?>
 @else
     <?php
+    $library_id        = $library->id;
     $book_title        = old('book_title');
     $book_description  = old('book_description');
     $book_isbn         = old('book_isbn');
     $book_publisher    = old('book_publisher');
     $book_publish_date = old('book_publish_date');
     $book_genre        = old('book_genre');
-    $route_name        = route('dashboard.books.create');
+    $route_name        = route('dashboard.libraries.books.create');
     ?>
 @endif
 
 <form class="upload-file" method="post" action="{{ $route_name }}" enctype="multipart/form-data">
     <input type="hidden" name="user_id" value="{{ $user_id }}">
+    @if(isset($library_id))
+        <input type="hidden" name="library_id" value="{{ $library_id }}">
+    @endif
     @if(isset($book_id))
         <input type="hidden" name="book_id" value="{{ $book_id }}">
     @endif
@@ -92,7 +97,15 @@
             </div>
         </div>
         @else
-            <a href="{{ route('dashboard.books.view', ['book_id' => $book->id]) }}">View</a>
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
+                    <label for="book_file" class="pull-right">View</label>
+                </div>
+                <div class="col-sm-10 col-md-10 col-lg-10 col-xs-12">
+                    <a class="btn btn-info" href="{{ route('dashboard.libraries.books.view', ['library_id' => $library->id, 'book_id' => $book->id]) }}">View Book</a>
+                </div>
+            </div>
+
         @endif
     </div>
     <div class="form-group">

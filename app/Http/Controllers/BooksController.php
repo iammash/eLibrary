@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Library;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use Auth;
 use App\Book;
 use App\Genre;
-use Illuminate\Support\Facades\Redirect;
-use Validator;
 use Session;
 
 class BooksController extends AuthenticatedController
@@ -17,24 +14,29 @@ class BooksController extends AuthenticatedController
 
     /**
      * Renders the book index page
+     *
+     * @param $library_id
      * @return mixed
      */
-    public function index()
+    public function index( $library_id )
     {
-        $user  = $this->user;
-        $books = $user->books()->getResults();
-        return view('dashboard.books.index', compact('user', 'books' ) );
+        $library = Library::find( $library_id );
+        $user    = $this->user;
+        $books   = $user->books()->where('library_id', '=', $library_id)->getResults();
+        return view('dashboard.libraries.books.index', compact('user', 'library', 'books' ) );
     }
 
     /**
      * Renders the Add book page
      * @return mixed
      */
-    public function add()
+    public function add( $library_id )
     {
         $genres = Genre::all();
         $user   = $this->user;
-        return view('dashboard.books.add', compact('user', 'genres'));
+        //TODO: Access control needed for library. Not every user can access every library.
+        $library = Library::find( $library_id );
+        return view('dashboard.libraries.books.add', compact('library',  'user', 'genres'));
     }
 
 
@@ -44,12 +46,17 @@ class BooksController extends AuthenticatedController
      * @param $book_id
      * @return mixed
      */
-    public function edit( $book_id )
+    public function edit( $library_id, $book_id )
     {
         $genres = Genre::all();
-        $book = Book::find( $book_id );
         $user = $this->user;
-        return view('dashboard.books.edit', compact('book', 'genres', 'user'));
+        //TODO: Access control needed for library. Not every user can access every library.
+        $library = Library::find( $library_id );
+        $book = Book::where( 'id', '=', $book_id )
+            ->where('user_id', '=', $this->user->id)
+            ->where('library_id', '=', $library_id)
+            ->first();
+        return view('dashboard.libraries.books.edit', compact('library', 'book', 'genres', 'user'));
     }
 
     /**
@@ -58,10 +65,15 @@ class BooksController extends AuthenticatedController
      * @param $book_id
      * @return mixed
      */
-    public function view( $book_id )
+    public function view( $library_id, $book_id )
     {
-        $book = Book::find( $book_id );
-        return view('dashboard.books.show', compact('book'));
+        //TODO: Access control needed for library. Not every user can access every library.
+        $library = Library::find( $library_id );
+        $book = Book::where( 'id', '=', $book_id )
+            ->where('user_id', '=', $this->user->id)
+            ->where('library_id', '=', $library_id)
+            ->first();
+        return view('dashboard.libraries.books.view', compact('library', 'book'));
     }
 
     /**
@@ -70,9 +82,16 @@ class BooksController extends AuthenticatedController
      * @param $book_id
      * @return mixed
      */
-    public function delete( $book_id )
+    public function delete( $library_id, $book_id )
     {
-        $book = Book::where( 'id', '=', $book_id )->where('user_id', '=', $this->user->id)->first();
+        $book = Book::where( 'id', '=', $book_id )
+            ->where('user_id', '=', $this->user->id)
+            ->where('library_id', '=', $library_id)
+            ->first();
+
+        //TODO: Access control needed for library. Not every user can access every library.
+        $library = Library::find( $library_id );
+
         $user = $this->user;
 
         if(  null === $book ){
@@ -80,7 +99,7 @@ class BooksController extends AuthenticatedController
             return redirect()->back();
         }
 
-        return view('dashboard.books.delete', compact('book', 'user'));
+        return view('dashboard.libraries.books.delete', compact('library', 'book', 'user'));
     }
 
 
@@ -99,6 +118,7 @@ class BooksController extends AuthenticatedController
         $book->isbn         = $request->get('book_isbn');
         $book->publish_date = $request->get('book_publish_date');
         $book->publisher    = $request->get('book_publisher');
+        $book->library_id   = $request->get('library_id');
         $book->save();
 
         return redirect()->back()->with('form_response', json_encode([
@@ -123,6 +143,7 @@ class BooksController extends AuthenticatedController
             'isbn'          => $request->get('book_isbn'),
             'publish_date'  => $request->get('book_publish_date'),
             'publisher'     => $request->get('book_publisher'),
+            'library_id'    => $request->get('library_id'),
             'user_id'       => $request->user()->id
         ]);
 
@@ -152,7 +173,6 @@ class BooksController extends AuthenticatedController
      */
     public function remove( Requests\DeleteBookRequest $request )
     {
-        $user_id = $request->user()->id;
         $book_id = $request->get('book_id');
         $book    = Book::find( $book_id );
 

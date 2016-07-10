@@ -17,8 +17,8 @@
             <div class="info-box">
                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Books</span>
-                    <span class="info-box-number">{{ $totalbooks }}</span>
+                    <span class="info-box-text">Total Libraries</span>
+                    <span class="info-box-number">{{ $total_libraries }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -44,20 +44,20 @@
         <div class="col-sm-12 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Recently Added Books</h3>
+                    <h3 class="box-title">Recently Added Libraries</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <ul class="products-list product-list-in-box">
-                        @foreach($recentbooks as $book)
+                        @foreach($recent_libraries as $library)
                         <li class="item">
                             <div class="product-img">
                                 <i class="fa fa-file-pdf-o"></i>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-title">{{$book->title}} <span class="label label-success pull-right">Quick Look</span></h4>
+                                <h4 class="product-title">{{ $library->name }} <span class="label label-success pull-right">Quick Look</span></h4>
                                 <span class="product-description">
-                                  Added {{ \Carbon\Carbon::createFromTimeStamp(strtotime($book->created_at))->diffForHumans()  }}
+                                  Added {{ \Carbon\Carbon::createFromTimeStamp(strtotime($library->created_at))->diffForHumans()  }}
                                 </span>
                             </div>
                         </li>

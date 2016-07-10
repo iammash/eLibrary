@@ -203,17 +203,14 @@
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="treeview {!! (\Route::is('dashboard.books.*') ? 'active' : '') !!}">
+                <li class="treeview {!! (\Route::is('dashboard.libraries.*') ? 'active' : '') !!}">
                     <a href="#">
-                        <i class="fa fa-paperclip"></i> <span>Books</span>
+                        <i class="fa fa-paperclip"></i> <span>Libraries</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{!! (\Route::is('dashboard.books.index') ? 'active' : '') !!}">
-                            <a href="{{ route('dashboard.books.index') }}"><i class="fa fa-circle-o"></i> Books</a>
-                        </li>
-                        <li class="{!! (\Route::is('dashboard.books.add') ? 'active' : '') !!}">
-                            <a href="{{ route('dashboard.books.add') }}"><i class="fa fa-circle-o"></i> Add New</a>
+                        <li class="{!! (\Route::is('dashboard.libraries.index') ? 'active' : '') !!}">
+                            <a href="{{ route('dashboard.libraries.index') }}"><i class="fa fa-circle-o"></i> List Libraries</a>
                         </li>
                     </ul>
                 </li>
