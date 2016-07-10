@@ -74,6 +74,14 @@ class Book extends Model
     }
 
     /**
+     * Get the library that this book is associated with.
+     */
+    public function library()
+    {
+        return $this->belongsTo('App\Library');
+    }
+
+    /**
      * Get the user that uploaded this book
      */
     public function user()

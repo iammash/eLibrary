@@ -33,4 +33,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Book');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Library');
+    }
 }

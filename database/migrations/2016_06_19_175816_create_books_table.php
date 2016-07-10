@@ -13,6 +13,7 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('title');
             $table->integer('genre_id')->unsigned();
@@ -22,12 +23,14 @@ class CreateBooksTable extends Migration
             $table->string('publisher')->nullable();
             $table->string('file');
             $table->text('description')->nullable();
+            $table->integer('library_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('books', function (Blueprint $table){
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('library_id')->references('id')->on('libraries')->onDelete('cascade');
         });
 
     }
