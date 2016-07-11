@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Books;
 
 use App\Http\Requests\Request;
 use Auth;
@@ -22,6 +22,19 @@ class DeleteBookRequest extends Request
         $library_id = $request['library_id'];
 
         return Book::userCan('delete', $user->id, $library_id, $book_id);
+    }
+
+    /**
+     * Redirect user to page after authorize fails.
+     *
+     * @return mixed
+     */
+    public function forbiddenResponse()
+    {
+        return redirect(route('dashboard.index'))->with('form_response', json_encode([
+            'type'    => 'danger',
+            'message' => 'You are not authorized to use this form.',
+        ]));
     }
 
     /**

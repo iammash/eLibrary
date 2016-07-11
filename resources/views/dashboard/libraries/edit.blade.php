@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pagetitle')
-    Create Library
+    Edit Library
 @endsection
 
 @section('breadcrumbs')
@@ -9,7 +9,7 @@
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{{ route('dashboard.libraries.index') }}">Libraries</a></li>
         <li>
-            <a href="{{ route('dashboard.libraries.new' ) }}"><strong>Create</strong> Library</a>
+            <a href="{{ route('dashboard.libraries.view', ['library_id' => $library->id ] ) }}"><strong>Editing</strong> {{ $library->name }}</a>
         </li>
     </ol>
 @endsection
@@ -17,10 +17,10 @@
 @section('content')
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Create library</h3>
+            <h3 class="box-title">Editing library "{{ $library->name }}"</h3>
         </div>
         <div class="box-body">
-            @include('dashboard.libraries.forms.library', ['user' => $user ])
+            @include('dashboard.libraries.forms.library', ['library' => $library, 'user' => $user ])
         </div>
         <!-- /.box-body -->
     </div>

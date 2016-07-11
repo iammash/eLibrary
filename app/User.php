@@ -42,4 +42,13 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Library', 'user_library', 'user_id', 'library_id');
     }
 
+    /**
+     * Returns the full name of the user
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
 }

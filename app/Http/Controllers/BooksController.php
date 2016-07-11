@@ -106,10 +106,10 @@ class BooksController extends AuthenticatedController
     /**
      * Handles the post request for updating existing book
      *
-     * @param Requests\UpdateBookRequest $request
+     * @param Requests\Books\UpdateBookRequest $request
      * @return mixed
      */
-    public function update( Requests\UpdateBookRequest $request )
+    public function update( Requests\Books\UpdateBookRequest $request )
     {
         $book               = Book::find( $request->get( 'book_id' ) );
         $book->title        = $request->get('book_title');
@@ -128,12 +128,12 @@ class BooksController extends AuthenticatedController
     }
 
     /**
-     * Handles the post request for creation new Book
+     *  Handles the post request for creation new Book
      *
-     * @param Requests\CreateBookRequest $request
+     * @param Requests\Books\CreateBookRequest $request
      * @return mixed
      */
-    public function create( Requests\CreateBookRequest $request )
+    public function create( Requests\Books\CreateBookRequest $request )
     {
         $file = $request->file('book_file');
         $result = Book::createBook($file->getPathname(), [
@@ -168,10 +168,10 @@ class BooksController extends AuthenticatedController
     /**
      * Handles removing resource from the database
      *
-     * @param Requests\DeleteBookRequest $request
+     * @param Requests\Books\DeleteBookRequest $request
      * @return mixed
      */
-    public function remove( Requests\DeleteBookRequest $request )
+    public function remove( Requests\Books\DeleteBookRequest $request )
     {
         $book_id = $request->get('book_id');
         $book    = Book::find( $book_id );

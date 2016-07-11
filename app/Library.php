@@ -31,7 +31,7 @@ class Library extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'user_library', 'user_id', 'library_id');
     }
 
 
@@ -78,6 +78,60 @@ class Library extends Model
         }
 
         return '';
+    }
+
+    /**
+     * Authorize user based on the roles
+     *
+     * @param $doWhat
+     * @param $user_id
+     * @param $library_id
+     * @return bool
+     */
+    public static function userCan( $doWhat, $user_id, $library_id )
+    {
+        $membership = LibraryMembership::where('user_id', '=', $user_id)
+                                        ->where('library_id', '=', $library_id)
+                                        ->first();
+
+        if( ! $membership->exists() ) {
+            return false;
+        }
+
+        if( $doWhat === 'view' ){
+
+            return $membership->access == Library::ACCESS_READ
+                || $membership->access == Library::ACCESS_WRITE
+                || $membership->access == Library::ACCESS_DELETE
+                || $membership->access == Library::ACCESS_MANAGER
+                || $membership->access == Library::ACCESS_OWNER;
+        }
+
+        if( $doWhat === 'edit' ){
+
+            return $membership->access == Library::ACCESS_WRITE
+                || $membership->access == Library::ACCESS_DELETE
+                || $membership->access == Library::ACCESS_MANAGER
+                || $membership->access == Library::ACCESS_OWNER;
+        }
+
+        if( $doWhat === 'delete' ){
+
+            return $membership->access == Library::ACCESS_DELETE
+                || $membership->access == Library::ACCESS_MANAGER
+                || $membership->access == Library::ACCESS_OWNER;
+        }
+
+        if( $doWhat === 'create' ){
+
+            return $membership->access == Library::ACCESS_WRITE
+                || $membership->access == Library::ACCESS_DELETE
+                || $membership->access == Library::ACCESS_MANAGER
+                || $membership->access == Library::ACCESS_OWNER;
+        }
+
+        return false;
+
     }
 
 }

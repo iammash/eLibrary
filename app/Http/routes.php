@@ -49,6 +49,21 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
             'uses' => 'LibraryController@delete'
         ]);
 
+        Route::post('/create',[
+            'as' => 'dashboard.libraries.create',
+            'uses' => 'LibraryController@create'
+        ]);
+
+        Route::post('/{library_id}/update', [
+            'as' => 'dashboard.libraries.update',
+            'uses' => 'LibraryController@update'
+        ]);
+
+        Route::post('/{library_id}/remove', [
+            'as' => 'dashboard.libraries.remove',
+            'uses' => 'LibraryController@remove'
+        ]);
+
         Route::group(['prefix' => '/{library_id}/books'], function () {
 
             Route::get('/', [
