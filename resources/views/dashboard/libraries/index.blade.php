@@ -63,14 +63,6 @@
                             </tr>
                         @endforeach
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th class="text-center">Description</th>
-                            <th class="text-center">Created</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                        </tfoot>
                     </table>
                 </div>
                 <!-- /.box-body -->
