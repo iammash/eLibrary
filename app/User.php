@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use DB;
 
 class User extends Authenticatable
 {
@@ -40,6 +41,15 @@ class User extends Authenticatable
     public function libraries()
     {
         return $this->belongsToMany('App\Library', 'user_library', 'user_id', 'library_id');
+    }
+
+    /**
+     * Returns the total user's library size
+     * @return float|int
+     */
+    public function librariesSize() {
+        $size = DB::table('books')->where('books.user_id', '=', $this->id)->sum('books.file_size');
+        return $size;
     }
 
     /**

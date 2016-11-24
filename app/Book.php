@@ -95,25 +95,25 @@ class Book extends Model
      * @param int $copyOrMove
      * @return bool|void
      */
-    public function storeBookFile( $fromPath, $copyOrMove = 0 )
+    public function storeBookFile($fromPath, $copyOrMove = 0)
     {
-        $toPath = self::getBookPath( $this->user_id, $this->file );
+        $toPath = self::getBookPath($this->user_id, $this->file);
 
         //check if the user directory exists before storing, if not create it.
-        if( ! File::isDirectory( self::getUserDirectory( $this->user_id ) ) ){
-            File::makeDirectory( self::getUserDirectory( $this->user_id ) );
+        if (!File::isDirectory(self::getUserDirectory($this->user_id))) {
+            File::makeDirectory(self::getUserDirectory($this->user_id));
         }
 
         //if same file already exists
-        if( File::exists( $toPath ) ) {
+        if (File::exists($toPath)) {
             return false;
         }
 
-        if( $copyOrMove === self::FILE_COPY ) {
-            return File::copy( $fromPath,  $toPath );
+        if ($copyOrMove === self::FILE_COPY) {
+            return File::copy($fromPath, $toPath);
         }
 
-        return File::move( $fromPath,  $toPath );
+        return File::move($fromPath, $toPath);
     }
 
 
@@ -126,33 +126,36 @@ class Book extends Model
     public function delete()
     {
         $isDeleted = parent::delete();
-        if( null === $isDeleted || true === $isDeleted )
-        {
-            File::delete( self::getBookPath( $this->user_id, $this->file ) );
+        if (null === $isDeleted || true === $isDeleted) {
+            File::delete(self::getBookPath($this->user_id, $this->file));
         }
         return $isDeleted;
     }
 
     /**
      * Returns The book size
-     * @return int
+     *
+     * @param int $pretty_format
+     * @param bool $from_db
+     * @return int|mixed|string
      */
-    public function getBookFileSize( $pretty_format = 0 )
+    public function getBookFileSize($pretty_format = 0, $from_db = true)
     {
-        $bookPath = self::getBookPath( $this->user_id, $this->file );
-        $size = File::size( $bookPath );
 
-        if( $pretty_format === self::FILESIZE_PRETTY_FORMAT ){
-
-            $units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
-
-            for ($i = 0; $size > 1024; $i++) {
-                $size /= 1024;
-            }
-
-            return round($size, 2) . ' ' . $units[$i];
+        if (true === $from_db) {
+            $size = $this->file_size;
+        } else {
+            $bookPath = self::getBookPath($this->user_id, $this->file);
+            $size = File::size($bookPath);
         }
 
+        if (!is_numeric($size)) {
+            return 0;
+        }
+
+        if ($pretty_format === self::FILESIZE_PRETTY_FORMAT) {
+            return formatBytes($size, $pretty_format);
+        }
         return $size;
     }
 
@@ -162,7 +165,7 @@ class Book extends Model
      * @param $userID integer
      * @return string
      */
-    public static function getUserDirectory( $userID )
+    public static function getUserDirectory($userID)
     {
         return storage_path('app/private') . '/' . (string)$userID . '/';
     }
@@ -173,9 +176,9 @@ class Book extends Model
      * @param $fileName
      * @return string
      */
-    public static function getBookPath( $userID, $fileName )
+    public static function getBookPath($userID, $fileName)
     {
-        return self::getUserDirectory( $userID ) . $fileName;
+        return self::getUserDirectory($userID) . $fileName;
     }
 
 
@@ -185,21 +188,20 @@ class Book extends Model
      * @param $extension
      * @return string
      */
-    public static function generateFileName( $extension )
+    public static function generateFileName($extension)
     {
-        $random = str_random(10).'.'.$extension;
+        $random = str_random(10) . '.' . $extension;
         $exists = self::where('file', '=', $random)->count();
-        if( $exists > 0 ){
-            return self::generateFileName( $extension );
+        if ($exists > 0) {
+            return self::generateFileName($extension);
         }
         return $random;
     }
 
 
-
     /**
      * Creates new model into the database
-     * 
+     *
      * @param $bookFilePath
      * @param array $attributes
      * @param int $move
@@ -207,18 +209,20 @@ class Book extends Model
      */
     public static function createBook($bookFilePath, array $attributes = [], $move = 0)
     {
-        if(!isset($attributes['file'])){
+        if (!isset($attributes['file'])) {
             $attributes['file'] = self::generateFileName('pdf');
         }
 
-        if(!File::exists($bookFilePath)){
+        if (!File::exists($bookFilePath)) {
             return false;
         }
 
+        $attributes['file_size'] = File::size($bookFilePath);
+
         $book = self::create($attributes);
 
-        if( $book ) {
-            $book->storeBookFile( $bookFilePath, $move );
+        if ($book) {
+            $book->storeBookFile($bookFilePath, $move);
             return $book;
         }
         return false;
@@ -227,7 +231,7 @@ class Book extends Model
 
     /**
      * Control access of the library
-     * 
+     *
      * @param $doWhat
      * @param $user_id
      * @param $library_id
@@ -236,24 +240,24 @@ class Book extends Model
      */
     public static function userCan($doWhat, $user_id, $library_id, $book_id = null)
     {
-        if( $doWhat !== 'create' && $book_id === null){
+        if ($doWhat !== 'create' && $book_id === null) {
             return false;
         }
 
         $query = DB::table('user_library')->select('*')
-            ->join( 'books', 'user_library.user_id', '=', 'books.user_id')
+            ->join('books', 'user_library.user_id', '=', 'books.user_id')
             ->where('user_library.user_id', '=', $user_id)
             ->where('user_library.library_id', '=', $library_id);
 
-        if( $book_id !== null ) {
+        if ($book_id !== null) {
             $query->where('books.id', '=', $book_id);
         }
-        
-        if( ! $query->exists() ){
+
+        if (!$query->exists()) {
             return false;
         }
 
-        if( $doWhat === 'view' ){
+        if ($doWhat === 'view') {
             return $query->where('user_library.access', '=', Library::ACCESS_READ)
                 ->orWhere('user_library.access', '=', Library::ACCESS_WRITE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
@@ -262,7 +266,7 @@ class Book extends Model
                 ->exists();
         }
 
-        if( $doWhat === 'edit' ){
+        if ($doWhat === 'edit') {
             return $query->where('user_library.access', '=', Library::ACCESS_WRITE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
@@ -270,21 +274,21 @@ class Book extends Model
                 ->exists();
         }
 
-        if( $doWhat === 'delete' ){
+        if ($doWhat === 'delete') {
             return $query->where('user_library.access', '=', Library::ACCESS_DELETE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
                 ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
                 ->exists();
         }
 
-        if( $doWhat === 'create' ){
+        if ($doWhat === 'create') {
             return $query->where('user_library.access', '=', Library::ACCESS_WRITE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_DELETE)
                 ->orWhere('user_library.access', '=', Library::ACCESS_MANAGER)
                 ->orWhere('user_library.access', '=', Library::ACCESS_OWNER)
                 ->exists();
         }
-        
+
         return false;
     }
 

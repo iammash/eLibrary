@@ -15,9 +15,10 @@ class DashboardController extends AuthenticatedController
         $user             = $this->user;
         $total_libraries  = $this->user->libraries()->count();
         $recent_libraries = $user->libraries()->orderBy('created_at','desc')->take(3)->get();
-        return view('dashboard.index', compact('recent_libraries', 'total_libraries', 'user'));
+        $size             = formatBytes($user->librariesSize(), 2);
+
+        return view('dashboard.index', compact('recent_libraries', 'total_libraries', 'user', 'size'));
     }
-    
 
     public function settings()
     {

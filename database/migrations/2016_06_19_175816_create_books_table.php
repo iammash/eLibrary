@@ -25,6 +25,7 @@ class CreateBooksTable extends Migration
             $table->text('description')->nullable();
             $table->integer('library_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->string('file_size');
             $table->timestamps();
         });
 
