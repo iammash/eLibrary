@@ -20,3 +20,9 @@
 hr{
    border: 1px solid #e8e8f9;
 }
+
+.dataTables_paginate .pagination{
+    margin-top: 0;
+    margin-bottom: 0;
+    float:right;
+}

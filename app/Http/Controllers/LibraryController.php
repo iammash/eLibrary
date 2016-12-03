@@ -34,6 +34,8 @@ class LibraryController extends AuthenticatedController
         $data['library'] = Library::find( $library_id );
         $data['books']   = $data['library']->books();
 
+        //dd($data['books']->get()->first()->id);
+
         return view('dashboard.libraries.view')->with($data);
     }
 

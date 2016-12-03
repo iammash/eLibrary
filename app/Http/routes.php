@@ -17,6 +17,12 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
         'uses' => 'DashboardController@index',
     ]);
 
+
+    Route::get('/profile', [
+        'as' => 'dashboard.profile',
+        'uses' => 'DashboardController@profile',
+    ]);
+
     Route::get('/settings', [
         'as' => 'dashboard.settings',
         'uses' => 'DashboardController@settings',

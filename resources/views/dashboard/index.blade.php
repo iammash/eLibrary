@@ -111,7 +111,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-4 col-xs-12">
+        <div class="col-sm-6 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">My Latest Libraries</h3>
@@ -126,8 +126,8 @@
                                     <i class="fa fa-file-pdf-o"></i>
                                 </div>
                                 <div class="product-info">
-                                    <h4 class="product-title">{{ $library->name }} <a href="#"
-                                                                                      class="btn btn-default pull-right">enter
+                                    <h4 class="product-title">{{ $library->name }}
+                                        <a href="{{ route('dashboard.libraries.view', ['library_id' => $library->id]) }}" class="btn btn-default pull-right">enter
                                             <i class="fa fa-arrow-right"></i> </a></h4>
                                     <span class="product-description">
                                   Added {{ \Carbon\Carbon::createFromTimeStamp(strtotime($library->created_at))->diffForHumans()  }}

@@ -34,8 +34,13 @@ class DashboardController extends AuthenticatedController
         return view('dashboard.index')->with($data);
     }
 
+    public function profile()
+    {
+        return view('dashboard.profile');
+    }
+
     public function settings()
     {
-        
+        return view('dashboard.settings');
     }
 }
