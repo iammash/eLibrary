@@ -4,6 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * Class Library
+ * @package App
+ *
+ * @property int id
+ * @property string name
+ * @property string created_at
+ * @property string updated_at
+ */
 class Library extends Model
 {
     const ACCESS_SUSPENDED = 'SUSPENDED';

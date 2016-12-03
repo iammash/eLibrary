@@ -5,8 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ *
  * Class Author
  * @package App
+ *
+ * @property int id
+ * @property string name
+ * @property int book_id
  */
 class Author extends Model
 {

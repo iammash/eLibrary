@@ -10,8 +10,24 @@ use File;
 use DB;
 
 /**
+ *
  * Class Book
  * @package App
+ *
+ * @property int id
+ * @property string title
+ * @property int genre_id
+ * @property string cover_image
+ * @property string isbn
+ * @property string publish_date
+ * @property string publisher
+ * @property string file
+ * @property string description
+ * @property int library_id
+ * @property int user_id
+ * @property int file_size
+ * @property string created_at
+ * @property string updated_at
  */
 class Book extends Model
 {

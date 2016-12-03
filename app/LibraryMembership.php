@@ -4,6 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * Class Library
+ * @package App
+ *
+ * @property int id
+ * @property int user_id
+ * @property int library_id
+ * @property string access
+ * @property string created_at
+ * @property string updated_at
+ */
 class LibraryMembership extends Model
 {
     /**

@@ -4,6 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *
+ * Class Genre
+ * @package App
+ *
+ * @property int id
+ * @property string title
+ */
 class Genre extends Model
 {
     /**

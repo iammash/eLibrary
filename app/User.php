@@ -5,6 +5,21 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
+/**
+ *
+ * Class User
+ * @package App
+ *
+ * @property int id
+ * @property string firstname
+ * @property string lastname
+ * @property string email
+ * @property string password
+ * @property int is_admin
+ * @property string remember_token
+ * @property string created_at
+ * @property string updated_at
+ */
 class User extends Authenticatable
 {
     /**

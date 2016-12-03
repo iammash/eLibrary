@@ -29,7 +29,12 @@ class LibraryController extends AuthenticatedController
      */
     public function view( $library_id )
     {
-        return view('dashboard.libraries.view');
+        $data = array();
+        $data['user']    = $this->user;
+        $data['library'] = Library::find( $library_id );
+        $data['books']   = $data['library']->books();
+
+        return view('dashboard.libraries.view')->with($data);
     }
 
     /**

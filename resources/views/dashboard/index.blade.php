@@ -13,63 +13,61 @@
 
 @section('content')
     @if( $user->isAdmin() )
-    <div class="row">
-      <div class="col-sm-12">
-        <h4>Administration</h4>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-orange"><i class="fa fa-users"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">System Total Active Users</span>
-                    <span class="info-box-number">{{ $globaL_total_users_now }}</span>
-                </div>
-                <!-- /.info-box-content -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Administration</h4>
             </div>
-            <!-- /.info-box -->
         </div>
-        <!-- /.col -->
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-book" aria-hidden="true"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">System Total Books Count</span>
-                    <span class="info-box-number">{{ $global_files_count }}</span>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><i class="fa fa-users"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">System Total Active Users</span>
+                        <span class="info-box-number">{{ $globaL_total_users_now }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box-content -->
+                <!-- /.info-box -->
             </div>
-            <!-- /.info-box -->
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-paperclip" aria-hidden="true"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">System Total Libraries Count</span>
-                    <span class="info-box-number">{{ $global_total_libraries }}</span>
+            <!-- /.col -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-book" aria-hidden="true"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">System Total Books Count</span>
+                        <span class="info-box-number">{{ $global_files_count }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box-content -->
+                <!-- /.info-box -->
             </div>
-            <!-- /.info-box -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">System Total Libraries Count</span>
+                        <span class="info-box-number">{{ $global_total_libraries }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
-     </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <hr/>
-      </div>
-    </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr/>
+            </div>
+        </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <h4>User Perks</h4>
-      </div>
-    </div>
-
-     @endif
-
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>User Perks</h4>
+            </div>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="info-box">
@@ -122,19 +120,22 @@
                 <div class="box-body">
                     <ul class="products-list product-list-in-box">
                         @foreach($user_recent_libraries as $library)
-                        <li class="item">
-                            <div class="product-img">
-                                <i class="fa fa-file-pdf-o"></i>
-                            </div>
-                            <div class="product-info">
-                                <h4 class="product-title">{{ $library->name }} <a href="#" class="btn btn-default pull-right">enter <i class="fa fa-arrow-right"></i> </a></h4>
-                                <span class="product-description">
+
+                            <li class="item">
+                                <div class="product-img">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </div>
+                                <div class="product-info">
+                                    <h4 class="product-title">{{ $library->name }} <a href="#"
+                                                                                      class="btn btn-default pull-right">enter
+                                            <i class="fa fa-arrow-right"></i> </a></h4>
+                                    <span class="product-description">
                                   Added {{ \Carbon\Carbon::createFromTimeStamp(strtotime($library->created_at))->diffForHumans()  }}
                                 </span>
-                            </div>
-                        </li>
-                        @endforeach
-                        <!-- /.item -->
+                                </div>
+                            </li>
+                    @endforeach
+                    <!-- /.item -->
                     </ul>
                 </div>
             </div>
