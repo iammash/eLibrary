@@ -21,10 +21,7 @@ class DashboardController extends AuthenticatedController
         $data['user_total_libraries']   = $this->user->libraries()->count();
         $data['user_recent_libraries']  = $this->user->libraries()->orderBy('created_at','desc')->take(3)->get();
         $data['user_libraries_size']    = formatBytes($this->user->librariesSize(), 2);
-        $data['user_files_count']       = 15;
-
-
-
+        $data['user_files_count']       = $this->user->books()->count();
 
         //Admin stats
         if( $this->user->is_admin ) {

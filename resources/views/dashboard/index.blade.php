@@ -14,11 +14,16 @@
 @section('content')
     @if( $user->isAdmin() )
     <div class="row">
+      <div class="col-sm-12">
+        <h4>Administration</h4>
+      </div>
+    </div>
+    <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+                <span class="info-box-icon bg-orange"><i class="fa fa-users"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Active Users</span>
+                    <span class="info-box-text">System Total Active Users</span>
                     <span class="info-box-number">{{ $globaL_total_users_now }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -26,15 +31,51 @@
             <!-- /.info-box -->
         </div>
         <!-- /.col -->
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-book" aria-hidden="true"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">System Total Books Count</span>
+                    <span class="info-box-number">{{ $global_files_count }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">System Total Libraries Count</span>
+                    <span class="info-box-number">{{ $global_total_libraries }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+     </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <hr/>
+      </div>
     </div>
-    @endif
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>User Perks</h4>
+      </div>
+    </div>
+
+     @endif
 
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-bolt"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="fa fa-paperclip" aria-hidden="true"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">User Libraries Count</span>
+                    <span class="info-box-text">My Libraries Count</span>
                     <span class="info-box-number">{{ $user_total_libraries }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -47,7 +88,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-cloud"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">User Libraries Storage</span>
+                    <span class="info-box-text">My Libraries Storage</span>
                     <span class="info-box-number">{{ $user_libraries_size }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -61,7 +102,7 @@
                 <span class="info-box-icon bg-yellow"><i class="fa fa-file-archive-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Files</span>
+                    <span class="info-box-text">My Books</span>
                     <span class="info-box-number">{{ $user_files_count }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -72,10 +113,10 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 col-xs-12">
+        <div class="col-sm-4 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Recently Added Libraries</h3>
+                    <h3 class="box-title">My Latest Libraries</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -86,7 +127,7 @@
                                 <i class="fa fa-file-pdf-o"></i>
                             </div>
                             <div class="product-info">
-                                <h4 class="product-title">{{ $library->name }} <span class="label label-success pull-right">Quick Look</span></h4>
+                                <h4 class="product-title">{{ $library->name }} <a href="#" class="btn btn-default pull-right">enter <i class="fa fa-arrow-right"></i> </a></h4>
                                 <span class="product-description">
                                   Added {{ \Carbon\Carbon::createFromTimeStamp(strtotime($library->created_at))->diffForHumans()  }}
                                 </span>
