@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  *
  * Class Genre
@@ -12,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string title
  */
-class Genre extends Model
+class Genre extends \Eloquent
 {
     /**
      * No timestamps needed for this table

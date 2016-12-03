@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  *
  * Class Library
@@ -16,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string created_at
  * @property string updated_at
  */
-class LibraryMembership extends Model
+class LibraryMembership extends \Eloquent
 {
     /**
      * The table nbame for this model

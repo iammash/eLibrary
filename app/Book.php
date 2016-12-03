@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Filesystem\Filesystem;
 use Storage;
 use File;
@@ -29,7 +27,7 @@ use DB;
  * @property string created_at
  * @property string updated_at
  */
-class Book extends Model
+class Book extends \Eloquent
 {
     /**
      * Constant used to determine the file should be moved or copied
@@ -109,7 +107,7 @@ class Book extends Model
      * Store a book file to the user directory
      * @param $fromPath
      * @param int $copyOrMove
-     * @return bool|void
+     * @return bool
      */
     public function storeBookFile($fromPath, $copyOrMove = 0)
     {
@@ -221,7 +219,7 @@ class Book extends Model
      * @param $bookFilePath
      * @param array $attributes
      * @param int $move
-     * @return bool|static
+     * @return bool|Book
      */
     public static function createBook($bookFilePath, array $attributes = [], $move = 0)
     {

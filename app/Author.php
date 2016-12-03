@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  *
  * Class Author
@@ -13,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string name
  * @property int book_id
  */
-class Author extends Model
+class Author extends \Eloquent
 {
     /**
      * No timestamps needed for this table

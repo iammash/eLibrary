@@ -76,6 +76,7 @@ class LibraryController extends AuthenticatedController
      * Handles the post request for creation new Library
      *
      * @param Requests\Libraries\CreateLibraryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create( Requests\Libraries\CreateLibraryRequest $request )
     {
@@ -121,7 +122,7 @@ class LibraryController extends AuthenticatedController
 
             foreach ($library_members as $m){
                 if(!in_array($m, $members)) {
-                    $_member = LibraryMembership::where('user_id', '=', $member)->where('library_id', '=', $library_id);
+                    $_member = LibraryMembership::where('user_id', '=', $m)->where('library_id', '=', $library_id);
                     $_member->delete();
                 }
             }
