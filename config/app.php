@@ -160,6 +160,7 @@ return [
          * Custom External Dependencies
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Kim\Activity\ActivityServiceProvider::class,
 
     ],
 
@@ -206,6 +207,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Activity' => Kim\Activity\ActivityFacade::class,
 
     ],
 

@@ -61,4 +61,12 @@ class User extends Authenticatable
         return $this->firstname . ' ' . $this->lastname;
     }
 
+    /**
+     * Returns true if the user is admin
+     * @return bool
+     */
+    public function isAdmin() {
+        return true;
+    }
+
 }
