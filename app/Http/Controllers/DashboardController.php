@@ -27,10 +27,12 @@ class DashboardController extends AuthenticatedController
 
 
         //Admin stats
-        $data['globaL_total_users_now'] = Activity::users()->count();
-        $data['global_last_one_hour']   = Activity::users(60);
-        $data['global_files_count']     = Book::all()->count();
-        $data['global_total_libraries'] = 10;
+        if( $this->user->is_admin ) {
+            $data['globaL_total_users_now'] = Activity::users()->count();
+            $data['global_last_one_hour']   = Activity::users(60);
+            $data['global_files_count']     = Book::all()->count();
+            $data['global_total_libraries'] = Library::all()->count();
+        }
 
         return view('dashboard.index')->with($data);
     }
