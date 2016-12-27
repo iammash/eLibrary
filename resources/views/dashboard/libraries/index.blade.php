@@ -19,18 +19,13 @@
 
 @section('content')
     <div class="row">
-        <div class="col-sm-6">
-
-        </div>
-        <div class="col-sm-6">
-            <a class="btn btn-primary pull-right with-margin-top-bottom"><i class="fa fa-plus"></i> Create New</a>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-sm-12">
             <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">My Libraries</h3>
+                <div class="box-header two-cols">
+                    <h3 class="box-title">
+                        My Libraries
+                        <a class="pull-right-without-spacing"><i class="fa fa-plus"></i> New</a>
+                    </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -51,7 +46,7 @@
                                 <td class="text-center">{{ $library->created_at }}</td>
                                 <td class="text-center" width="10%">
                                     <div class="dropdown">
-                                        <button class="btn btn-flat btn-info dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
+                                        <button class="btn btn-flat btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
@@ -78,7 +73,7 @@
     <script>
         (function ( $ ) {
             $('#librariesTable').DataTable({
-                "paging": true,
+                //"paging": true,
                 "lengthChange": true,
                 "searching": true,
                 "ordering": true,

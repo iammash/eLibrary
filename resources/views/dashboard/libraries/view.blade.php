@@ -73,6 +73,7 @@
                                 <th>Genre</th>
                                 <th>ISB</th>
                                 <th>Publish Date</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
