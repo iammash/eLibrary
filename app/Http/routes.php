@@ -20,7 +20,12 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
 
     Route::get('/profile', [
         'as' => 'dashboard.profile',
-        'uses' => 'DashboardController@profile',
+        'uses' => 'ProfileController@profile',
+    ]);
+
+    Route::post('/profile/save', [
+        'as' => 'dashboard.profile.save',
+        'uses' => 'ProfileController@save',
     ]);
 
     Route::get('/settings', [

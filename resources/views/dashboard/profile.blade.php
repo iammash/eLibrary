@@ -25,54 +25,57 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="POST" action="{{route('dashboard.profile.save')}}">
+                        {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="inputName" class="col-sm-2 control-label">Name</label>
+                            <label for="first_name" class="col-sm-2 control-label">First Name</label>
 
                             <div class="col-sm-10">
-                                <input class="form-control" id="inputName" placeholder="Name" type="email">
+                                <input class="form-control" id="first_name" name="first_name" value="{{ $user->firstname }}" placeholder="First Name" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                            <label for="last_name" class="col-sm-2 control-label">Last Name</label>
 
                             <div class="col-sm-10">
-                                <input class="form-control" id="inputEmail" placeholder="Email" type="email">
+                                <input class="form-control" id="last_name" name="last_name" value="{{ $user->lastname }}" placeholder="Last Name" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputName" class="col-sm-2 control-label">Name</label>
+                            <label for="email" class="col-sm-2 control-label">Email</label>
 
                             <div class="col-sm-10">
-                                <input class="form-control" id="inputName" placeholder="Name" type="text">
+                                <input class="form-control" id="email" value="{{ $user->email }}" placeholder="email" disabled type="email">
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                            <label for="current_password" class="col-sm-2 control-label">Current Password</label>
 
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                <input class="form-control" name="current_password" id="current_password" placeholder="Current Password" type="password">
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+                            <label for="new_password" class="col-sm-2 control-label">New Password</label>
 
                             <div class="col-sm-10">
-                                <input class="form-control" id="inputSkills" placeholder="Skills" type="text">
+                                <input class="form-control" name="new_password" id="new_password" placeholder="New Password" type="password">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="new_password_confirm" class="col-sm-2 control-label">Confirm New Password</label>
+
+                            <div class="col-sm-10">
+                                <input class="form-control" name="new_password_confirm" id="new_password_confirm" value="" placeholder="New Password Confirmation" type="password">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-danger">Submit</button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Submit</button>
                             </div>
                         </div>
                     </form>
