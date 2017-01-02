@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Books;
+namespace eLibrary\Http\Requests\Books;
 
-use App\Book;
-use App\Http\Requests\Request;
+use eLibrary\Book;
+use eLibrary\Http\Requests\Request;
 use Auth;
 
 class UpdateBookRequest extends Request

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace eLibrary;
 
 /**
  *
@@ -31,4 +31,25 @@ class LibraryMembership extends \Eloquent
     protected $fillable = [
         'id', 'user_id', 'library_id', 'access',
     ];
+
+    /**
+     * If membership exists.
+     *
+     * @param $library_id
+     * @param $user_id
+     * @return bool
+     */
+    public static function membershipExists($library_id, $user_id)
+    {
+        $membership = static::where('library_id', '=', $library_id)->where('user_id', '=', $user_id);
+        return ($membership != null && $membership->exists());
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function availableForMembership( $library_id ) {
+        $ids = \DB::table('user_library')->where('library_id', '=', $library_id)->pluck('user_id');
+        return \eLibrary\User::whereNotIn('id', $ids)->get();
+    }
 }

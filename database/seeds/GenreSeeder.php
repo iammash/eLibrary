@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Genre;
+use eLibrary\Genre;
 
 class GenreSeeder extends Seeder
 {
@@ -12,6 +12,8 @@ class GenreSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('genres')->truncate();
+
         Genre::create([ 'id' => 1, 'title' => 'Drama' ]);
         Genre::create([ 'id' => 2, 'title' => 'Romance' ]);
         Genre::create([ 'id' => 3, 'title' => 'Horror' ]);

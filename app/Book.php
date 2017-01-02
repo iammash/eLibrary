@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace eLibrary;
 
 use Illuminate\Filesystem\Filesystem;
 use Storage;
@@ -76,7 +76,7 @@ class Book extends \Eloquent
      */
     public function authors()
     {
-        return $this->hasMany('App\Author');
+        return $this->hasMany('eLibrary\Author');
     }
 
     /**
@@ -84,7 +84,7 @@ class Book extends \Eloquent
      */
     public function genre()
     {
-        return $this->belongsTo('App\Genre');
+        return $this->belongsTo('eLibrary\Genre');
     }
 
     /**
@@ -92,7 +92,7 @@ class Book extends \Eloquent
      */
     public function library()
     {
-        return $this->belongsTo('App\Library');
+        return $this->belongsTo('eLibrary\Library');
     }
 
     /**
@@ -100,7 +100,7 @@ class Book extends \Eloquent
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('eLibrary\User');
     }
 
     /**

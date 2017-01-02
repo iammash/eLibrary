@@ -2,22 +2,32 @@
 $user_id = $user->id;
 
 if(isset($library)){
+
     $route_name = route('dashboard.libraries.update', ['library_id' => $library->id]);
     $library_id          = $library->id;
     $library_name        = $library->name;
     $library_description = $library->description;
-    //Selected users
-    $ext_library_users   = $library->users()->get();
-    //Users that aren't selected
-    $users               = \App\User::join('user_library', 'user_library.user_id', '<>', 'users.id')
-                                    ->where('user_library.library_id', '=', $library_id )
-                                    ->get();
+
+    $manager = \eLibrary\User::join('user_library', 'user_library.user_id', '=', 'users.id')
+        ->where('user_library.library_id', '=', $library_id)
+        ->where('user_library.access', '=', 'MANAGER')
+        ->first();
+
+    $owner = \eLibrary\User::join('user_library', 'user_library.user_id', '=', 'users.id')
+        ->where('user_library.library_id', '=', $library_id)
+        ->where('user_library.access', '=', 'OWNER')
+        ->first();
+
+    $ownersNmanagers = \eLibrary\LibraryMembership::whereNotIn('access', ['OWNER', 'MANAGER'])->pluck('user_id')->toArray();
+    $users = \eLibrary\User::whereIn('id', $ownersNmanagers)->get();
+
 } else {
-    $users               = App\User::all();
+    $users               = \eLibrary\User::all();
+    $manager             = $users;
+    $owner               = $users;
     $route_name          = route('dashboard.libraries.create');
     $library_name        = old('library_name');
     $library_description = old('library_description');
-    $ext_library_users   = array();
 }
 ?>
 
@@ -49,19 +59,46 @@ if(isset($library)){
     </div>
     <div class="form-group">
         <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                <label for="library_members" class="pull-right">Owner</label>
+            </div>
+            <div class="col-sm-10 col-md-10 col-xs-10">
+                @if($owner !== null && $owner->exists())
+                    <input name="owner" class="form-control" disabled value="{{ $owner->getFullName() }}" />
+                @else
+                    <strong>None</strong>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                <label for="library_members" class="pull-right">Manager</label>
+            </div>
+            <div class="col-sm-10 col-md-10 col-xs-10">
+                @if($manager !== null && $manager->exists())
+                    <input name="owner" class="form-control" disabled value="{{ $manager->getFullName() }}" />
+                @else
+                    <strong>None</strong>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
                 <label for="library_members" class="pull-right">Members</label>
             </div>
             <div class="col-sm-10 col-md-10 col-lg-10 col-xs-12">
                 @if(count($users) > 0)
                 <select id="library_members" name="library_members[]" multiple class="form-control">
-                    @if(count($ext_library_users) > 0)
-                        @foreach($ext_library_users as $user)
-                            <option selected value="{{ $user->id }}">{{ $user->getFullName() }}</option>
-                        @endforeach
-                    @endif
                     @foreach($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->getFullName() }}</option>
+                        @if(\eLibrary\LibraryMembership::membershipExists($library_id, $user->id))
+                            <option selected value="{{ $user->id }}">{{ $user->getFullName() }}</option>
+                        @else
+                            <option value="{{ $user->id }}">{{ $user->getFullName() }}</option>
+                        @endif
                     @endforeach
                 </select>
                 @endif

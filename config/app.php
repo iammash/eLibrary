@@ -151,10 +151,10 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        eLibrary\Providers\AppServiceProvider::class,
+        eLibrary\Providers\AuthServiceProvider::class,
+        eLibrary\Providers\EventServiceProvider::class,
+        eLibrary\Providers\RouteServiceProvider::class,
 
         /**
          * Custom External Dependencies

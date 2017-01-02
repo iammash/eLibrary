@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Library;
-use App\LibraryMembership;
+use eLibrary\Library;
+use eLibrary\LibraryMembership;
 
 class LibrarySeeder extends Seeder
 {
@@ -13,6 +13,10 @@ class LibrarySeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('libraries')->truncate();
+        DB::table('user_library')->truncate();
+
         Library::create([
             'id'   => 1,
             'name' => 'School eLibrary',

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace eLibrary\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Http\Requests;
+use eLibrary\Http\Requests;
 use Auth;
 
 class AuthenticatedController extends Controller
 {
     /**
      * The current authenticated user
-     * @var \App\User
+     * @var \eLibrary\User
      */
     protected $user = null;
 

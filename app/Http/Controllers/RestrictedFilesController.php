@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace eLibrary\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Http\Requests;
+use eLibrary\Http\Requests;
 use Response;
-use App\Book;
+use eLibrary\Book;
 use League\Flysystem\File;
 
 class RestrictedFilesController extends AuthenticatedController

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Author;
+use eLibrary\Author;
 
 class AuthorSeeder extends Seeder
 {
@@ -12,6 +12,9 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('authors')->truncate();
+
         Author::create([
             'name' => 'Charles E. Leiserson',
             'book_id' => 1

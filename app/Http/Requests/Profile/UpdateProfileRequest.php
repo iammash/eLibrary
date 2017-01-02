@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Profile;
+namespace eLibrary\Http\Requests\Profile;
 
-use App\Http\Requests\Request;
+use eLibrary\Http\Requests\Request;
 
 class UpdateProfileRequest extends Request
 {

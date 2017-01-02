@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Libraries;
+namespace eLibrary\Http\Requests\Libraries;
 
-use App\Http\Requests\Request;
+use eLibrary\Http\Requests\Request;
 
 class CreateLibraryRequest extends Request
 {

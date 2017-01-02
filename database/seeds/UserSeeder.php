@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use eLibrary\User;
 
 class UserSeeder extends Seeder
 {
@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->truncate();
+
         User::create([
            'id' => 1,
             'firstname' => 'Darko',

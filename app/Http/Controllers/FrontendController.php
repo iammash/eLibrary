@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace eLibrary\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use eLibrary\Http\Requests;
 
 class FrontendController extends Controller
 {

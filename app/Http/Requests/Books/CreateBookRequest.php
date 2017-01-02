@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Books;
+namespace eLibrary\Http\Requests\Books;
 
-use App\Http\Requests\Request;
+use eLibrary\Http\Requests\Request;
 use Auth;
-use App\Book;
+use eLibrary\Book;
 
 class CreateBookRequest extends Request
 {

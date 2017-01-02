@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace eLibrary;
 
 /**
  *
@@ -35,23 +35,24 @@ class Library extends \Eloquent
     /**
      * Return all libraries that user is member
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_library', 'user_id', 'library_id');
+        return $this->belongsToMany('eLibrary\User', 'user_library', 'user_id', 'library_id');
     }
 
 
     /**
      * Return all books for this library
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function books()
     {
-        return $this->hasMany('App\Book');
+        return $this->hasMany('eLibrary\Book');
     }
+
 
     /**
      * Returns the access meaning

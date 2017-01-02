@@ -18,6 +18,10 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('assets/css/skins/skin-green-light.css') }} ">
 
+    <!-- Select 2 -->
+    <link rel="stylesheet" href="{{ asset('assets/resources/select2/css/select2.min.css') }}" />
+
+    <!-- Custom stylesheets -->
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }} ">
 
     @yield('head')
@@ -209,8 +213,16 @@
 <script src="{{ asset('assets/resources/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
+<!-- Select 2 -->
+<script src="{{ asset('assets/resources/select2/js/select2.js') }}"></script>
 
 @yield('footer')
+
+<script>
+(function($){
+    $('select').select2();
+})(jQuery);
+</script>
 
 </body>
 </html>

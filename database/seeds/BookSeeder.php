@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Book;
+use eLibrary\Book;
 
 class BookSeeder extends Seeder
 {
@@ -12,6 +12,8 @@ class BookSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('books')->truncate();
+
         Book::createBook( self::getDemoDataDirectory('1181818183.pdf'), [
             'id' => 1,
             'title' => 'Introduction to Algorithms',

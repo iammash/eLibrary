@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace eLibrary;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
@@ -47,7 +47,7 @@ class User extends Authenticatable
      */
     public function books()
     {
-        return $this->hasMany('App\Book');
+        return $this->hasMany('eLibrary\Book');
     }
 
     /**
@@ -55,7 +55,7 @@ class User extends Authenticatable
      */
     public function libraries()
     {
-        return $this->belongsToMany('App\Library', 'user_library', 'user_id', 'library_id');
+        return $this->belongsToMany('eLibrary\Library', 'user_library', 'user_id', 'library_id');
     }
 
     /**
@@ -71,8 +71,7 @@ class User extends Authenticatable
      * Returns the full name of the user
      * @return string
      */
-    public function getFullName()
-    {
+    public function getFullName() {
         return $this->firstname . ' ' . $this->lastname;
     }
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace eLibrary\Http\Controllers;
 
-use App\Library;
+use eLibrary\Library;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Book;
+use eLibrary\Http\Requests;
+use eLibrary\Book;
 use Activity;
 
 

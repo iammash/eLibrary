@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace eLibrary\Http\Controllers;
 
-use App\Http\Requests;
-use App\Library;
-use App\LibraryMembership;
+use eLibrary\Http\Requests;
+use eLibrary\Library;
+use eLibrary\LibraryMembership;
 
 class LibraryController extends AuthenticatedController
 {
@@ -111,34 +111,55 @@ class LibraryController extends AuthenticatedController
      * Handles the post request for updating Library
      *
      * @param Requests\Libraries\UpdateLibraryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update( Requests\Libraries\UpdateLibraryRequest $request )
     {
-        $library_id = $request->get('library_id');
-        $library    = Library::find( $library_id );
-        $library->name = $request->get('library_name');
-        $library->description = $request->get('library_description');
-        $members = $request->get('library_members');
-        $library_members = $library->users()->get()->toArray();
-        if(!empty($members) && count($members) > 0){
+        $library_id       = $request->get('library_id');
 
-            foreach ($library_members as $m){
-                if(!in_array($m, $members)) {
-                    $_member = LibraryMembership::where('user_id', '=', $m)->where('library_id', '=', $library_id);
-                    $_member->delete();
-                }
-            }
+        $existing_members = LibraryMembership::where('library_id', '=', $library_id)
+            ->where('user_library.access', '<>', 'OWNER')
+            ->where('user_library.access', '<>', 'MANAGER')->get();
 
-            foreach ($members as $member){
-                $isMember = LibraryMembership::where('user_id', '=', $member)->where('library_id', '=', $library_id)->first()->exists();
-                if( ! $isMember ) {
-                    LibraryMembership::create([
-                       'user_id' => $member,
-                        'library_id' => $library_id
-                    ]);
-                }
+        $lib_members      = array_values($request->get('library_members'));
+
+        foreach($existing_members as $membership)
+        {
+            if(!in_array($membership->user_id, $lib_members))
+            {
+                LibraryMembership::where('library_id', '=', $library_id)
+                    ->where('user_id', '=', $membership->user_id)
+                    ->delete();
             }
         }
+
+        foreach($lib_members as $new_member)
+        {
+            $notexists = false;
+            foreach($existing_members as $old_membership)
+            {
+                if( $old_membership->user_id === $new_member )
+                {
+                    $notexists = true;
+                }
+            }
+
+            if( ! $notexists )
+            {
+                LibraryMembership::create(array(
+                    'library_id' => $library_id,
+                    'user_id' => $new_member,
+                    'access' => 'R',
+                ));
+            }
+
+        }
+
+        return redirect()->back()->with('form_response', json_encode([
+            'type' => 'success',
+            'message' => 'Your library has been updated successfully!'
+        ]));
+
     }
 
     /**
