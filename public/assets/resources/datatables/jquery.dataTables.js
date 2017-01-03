@@ -2394,7 +2394,7 @@
 	
 	/**
 	 * Create an Ajax call based on the table's settings, taking into account that
-	 * parameters can have multiple forms, and backwards compatibility.
+	 * parameters can have multiple parts, and backwards compatibility.
 	 *
 	 * @param {object} oSettings dataTables settings object
 	 * @param {array} data Data to send to the server, required by
@@ -6623,7 +6623,7 @@
 	
 	/**
 	 * Abstraction for `context` parameter of the `Api` constructor to allow it to
-	 * take several different forms for ease of use.
+	 * take several different parts for ease of use.
 	 *
 	 * Each of the input parameter types will be converted to a DataTables settings
 	 * object where possible.
@@ -12225,7 +12225,7 @@
 		 *    // This would be used with a data source such as:
 		 *    //   { "phone": 5552368, "phone_filter": "5552368 555-2368", "phone_display": "555-2368" }
 		 *    // Here the `phone` integer is used for sorting and type detection, while `phone_filter`
-		 *    // (which has both forms) is used for filtering for if a user inputs either format, while
+		 *    // (which has both parts) is used for filtering for if a user inputs either format, while
 		 *    // the formatted phone number is the one that is shown in the table.
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {

@@ -22,43 +22,23 @@
         <div class="col-sm-12">
             <div class="box">
                 <div class="box-header two-cols">
-                    <h3 class="box-title">
-                        My Libraries
-                        <a class="pull-right-without-spacing"><i class="fa fa-plus"></i> New</a>
-                    </h3>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="box-title">
+                                My Libraries
+                            </h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <form class="form-inline pull-right">
+                                <input type="text" class="form-control" placeholder="eg. Computer science">
+                                <button class="btn btn-default" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="librariesTable" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th class="text-center">Description</th>
-                            <th class="text-center">Created</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($libraries->get() as $library)
-                            <tr>
-                                <td>{{ $library->name }}</td>
-                                <td class="text-center">{{ $library->description }}</td>
-                                <td class="text-center">{{ $library->created_at }}</td>
-                                <td class="text-center" width="10%">
-                                    <div class="dropdown">
-                                        <button class="btn btn-flat btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{{ route('dashboard.libraries.view', ['library_id' => $library->id]) }}">View Books</a></li>
-                                            <li><a href="{{ route('dashboard.libraries.edit', ['library_id' => $library->id]) }}">Manage</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    @include('dashboard.libraries.parts.archive', ['libraries' => $libraries->get()])
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -72,20 +52,7 @@
     <script src="{{ asset('assets/resources/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script>
         (function ( $ ) {
-            $('#librariesTable').DataTable({
-                //"paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "aoColumns": [
-                    null,
-                    null,
-                    null,
-                    { "bSortable": false }
-                ]
-            });
+
         })(jQuery)
     </script>
 @endsection

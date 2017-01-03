@@ -1,7 +1,7 @@
 <?php
 $user_id = $user->id;
 
-if(isset($library)){
+if(isset($library) && is_object($library)){
 
     $route_name = route('dashboard.libraries.update', ['library_id' => $library->id]);
     $library_id          = $library->id;
@@ -22,7 +22,7 @@ if(isset($library)){
     $users = \eLibrary\User::whereIn('id', $ownersNmanagers)->get();
 
 } else {
-    $users               = \eLibrary\User::all();
+    $users               = \eLibrary\User::where('id', '<>', $user->id)->get();
     $manager             = $users;
     $owner               = $users;
     $route_name          = route('dashboard.libraries.create');
@@ -57,13 +57,14 @@ if(isset($library)){
             </div>
         </div>
     </div>
+    @if(isset($library) && is_object($library))
     <div class="form-group">
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2">
                 <label for="library_members" class="pull-right">Owner</label>
             </div>
             <div class="col-sm-10 col-md-10 col-xs-10">
-                @if($owner !== null && $owner->exists())
+                @if($owner !== null && is_object($owner))
                     <input name="owner" class="form-control" disabled value="{{ $owner->getFullName() }}" />
                 @else
                     <strong>None</strong>
@@ -77,7 +78,7 @@ if(isset($library)){
                 <label for="library_members" class="pull-right">Manager</label>
             </div>
             <div class="col-sm-10 col-md-10 col-xs-10">
-                @if($manager !== null && $manager->exists())
+                @if($manager !== null && is_object($owner))
                     <input name="owner" class="form-control" disabled value="{{ $manager->getFullName() }}" />
                 @else
                     <strong>None</strong>
@@ -85,6 +86,7 @@ if(isset($library)){
             </div>
         </div>
     </div>
+    @endif
     <div class="form-group">
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
@@ -94,7 +96,7 @@ if(isset($library)){
                 @if(count($users) > 0)
                 <select id="library_members" name="library_members[]" multiple class="form-control">
                     @foreach($users as $user)
-                        @if(\eLibrary\LibraryMembership::membershipExists($library_id, $user->id))
+                        @if(isset($library_id) && \eLibrary\LibraryMembership::membershipExists($library_id, $user->id))
                             <option selected value="{{ $user->id }}">{{ $user->getFullName() }}</option>
                         @else
                             <option value="{{ $user->id }}">{{ $user->getFullName() }}</option>

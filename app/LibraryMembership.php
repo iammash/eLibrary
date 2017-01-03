@@ -42,7 +42,7 @@ class LibraryMembership extends \Eloquent
     public static function membershipExists($library_id, $user_id)
     {
         $membership = static::where('library_id', '=', $library_id)->where('user_id', '=', $user_id);
-        return ($membership != null && $membership->exists());
+        return ($membership != null && is_object($membership) && $membership->exists());
     }
 
     /**

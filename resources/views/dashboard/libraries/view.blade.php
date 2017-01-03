@@ -41,6 +41,33 @@
         </div>
     </div>
 
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="info-box">
+                <span class="info-box-icon bg-light-blue"><i class="fa fa-calendar"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Member Since</span>
+                    <span class="info-box-number">{{ $member_since }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-lock"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Access</span>
+                    <span class="info-box-number">{{ $access }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-solid">
@@ -66,30 +93,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="librarybooks" class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Genre</th>
-                                <th>ISB</th>
-                                <th>Publish Date</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($books->get() as $book)
-                                <tr>
-                                    <td>{{ $book->title }}</td>
-                                    <td>{{ $book->genre()->first()->title }}</td>
-                                    <td>{{ $book->isbn }}</td>
-                                    <td>{{ $book->publish_date }}</td>
-                                    <td width="80px">
-                                        <a href="" class="btn  btn-success"><i class="fa fa-eye-slash"></i> read</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        @include('dashboard.libraries.books.parts.archive', ['books' => $books->get(), 'library' => $library, 'user' => $user, 'remove_controls' => false])
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -102,18 +106,4 @@
 
 
 @section('footer')
-    <script src="{{ asset('assets/resources/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/resources/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script>
-        $(function () {
-            $('#librarybooks').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-        });
-    </script>
 @endsection

@@ -1,5 +1,6 @@
 @if( isset( $book ) )
     <?php
+    $btn               = 'Save';
     $library_id        = $library->id;
     $book_id           = $book->id;
     $book_title        = $book->title;
@@ -12,6 +13,7 @@
     ?>
 @else
     <?php
+    $btn               = 'Upload';
     $library_id        = $library->id;
     $book_title        = old('book_title');
     $book_description  = old('book_description');
@@ -112,7 +114,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
                 <hr/>
-                <button id="submitEbook" class="btn btn-primary pull-right"><i class="fa fa-arrow-up"></i> Upload</button>
+                <button id="submitEbook" class="btn btn-primary pull-right"><i class="fa fa-arrow-up"></i> {{ $btn }}</button>
             </div>
         </div>
     </div>

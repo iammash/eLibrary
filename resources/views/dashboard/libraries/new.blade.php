@@ -20,7 +20,7 @@
             <h3 class="box-title">Create library</h3>
         </div>
         <div class="box-body">
-            @include('dashboard.libraries.forms.library', ['user' => $user ])
+            @include('dashboard.libraries.parts.settings', ['user' => $user ])
         </div>
         <!-- /.box-body -->
     </div>

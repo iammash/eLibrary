@@ -2,6 +2,7 @@
 
 namespace eLibrary\Http\Controllers;
 
+use eLibrary\Book;
 use eLibrary\Http\Requests;
 use eLibrary\Library;
 use eLibrary\LibraryMembership;
@@ -17,7 +18,7 @@ class LibraryController extends AuthenticatedController
     public function index()
     {
         $user      = $this->user;
-        $libraries = $this->user->libraries();
+        $libraries = $this->user->libraries()->where('user_library.access', '<>', 'REQUESTED');
         return view('dashboard.libraries.index', compact( 'user', 'libraries' ) );
     }
 
@@ -29,10 +30,13 @@ class LibraryController extends AuthenticatedController
      */
     public function view( $library_id )
     {
+        $membership = LibraryMembership::where('user_id', '=', $this->user->id)->where('library_id', '=', $library_id)->first();
         $data = array();
         $data['user']    = $this->user;
         $data['library'] = Library::find( $library_id );
         $data['books']   = $data['library']->books();
+        $data['member_since'] = $membership->created_at;
+        $data['access'] = $membership->access;
 
         //dd($data['books']->get()->first()->id);
 
@@ -88,11 +92,19 @@ class LibraryController extends AuthenticatedController
                 ]);
 
         if( $newLib instanceof Library ) {
+
+            LibraryMembership::create([
+                'user_id' => $request->user()->id,
+                'library_id' => $newLib->id,
+                'access' => Library::ACCESS_MANAGER
+            ]);
+
             $members = $request->get('library_members');
             foreach ( $members as $member ) {
                 LibraryMembership::create([
                     'user_id' => $member,
                     'library_id' => $newLib->id,
+                    'access' => Library::ACCESS_READ
                 ]);
             }
             return redirect()->back()->with('form_response', json_encode([
@@ -160,6 +172,33 @@ class LibraryController extends AuthenticatedController
             'message' => 'Your library has been updated successfully!'
         ]));
 
+    }
+
+
+    /**
+     * @param Requests\Libraries\ReqAccessRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function requestAccessFromBook( Requests\Libraries\ReqAccessRequest $request )
+    {
+        if( ! $request->user()->hasMembershipAccessToBook( $request->get('book_id') ) ) {
+            $book = $request->get('book_id');
+            $book = Book::find($book);
+            LibraryMembership::create([
+                'library_id' => $book->library_id,
+                'user_id' => $request->user()->id,
+                'access' => 'REQUESTED',
+            ]);
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'info',
+                'message' => 'Access has been requested. Please wait some time until library owner verifies your membership.'
+            ]));
+        } else {
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'danger',
+                'message' => 'User has access to the book already.'
+            ]));
+        }
     }
 
     /**

@@ -53,6 +53,22 @@ class Library extends \Eloquent
         return $this->hasMany('eLibrary\Book');
     }
 
+    /**
+     * @param $search_query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public static function search( $search_query )
+    {
+        $search_query = explode(' ', $search_query);
+        $query = \DB::table('libraries')->where('name', 'LIKE', '%'.$search_query[0].'%');
+        if(count($search_query)>1){
+            for($i = 1; $i < count($search_query); $i++){
+                $query->orWhere('name', 'LIKE', '%'.$search_query[$i].'%');
+            }
+        }
+        return $query;
+    }
+
 
     /**
      * Returns the access meaning
@@ -107,6 +123,12 @@ class Library extends \Eloquent
             return false;
         }
 
+        $user = User::find( $user_id );
+
+        if( null === $user_id ) {
+            return false;
+        }
+
         if( $doWhat === 'view' ){
 
             return $membership->access == Library::ACCESS_READ
@@ -137,6 +159,14 @@ class Library extends \Eloquent
                 || $membership->access == Library::ACCESS_DELETE
                 || $membership->access == Library::ACCESS_MANAGER
                 || $membership->access == Library::ACCESS_OWNER;
+        }
+
+        if( $doWhat === 'everything' ) {
+            return $membership->access == Library::ACCESS_WRITE
+                || $membership->access == Library::ACCESS_DELETE
+                || $membership->access == Library::ACCESS_MANAGER
+                || $membership->access == Library::ACCESS_OWNER
+                || $user->isAdmin();
         }
 
         return false;

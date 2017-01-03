@@ -15,13 +15,15 @@
 @endsection
 
 @section('content')
+
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ $library->name }}</h3>
+            <h3 class="box-title">Basic Settings</h3>
         </div>
         <div class="box-body">
-            @include('dashboard.libraries.forms.library', ['library' => $library, 'user' => $user ])
+            @include('dashboard.libraries.parts.settings', ['library' => $library, 'user' => $user ])
         </div>
         <!-- /.box-body -->
     </div>
+
 @endsection

@@ -17,6 +17,15 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
         'uses' => 'DashboardController@index',
     ]);
 
+    Route::get('/books', [
+        'as' => 'dashboard.books',
+        'uses' => 'DashboardController@books',
+    ]);
+
+    Route::get('/users', [
+        'as' => 'dashboard.users',
+        'uses' => 'AdminController@users',
+    ]);
 
     Route::get('/profile', [
         'as' => 'dashboard.profile',
@@ -30,7 +39,12 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
 
     Route::get('/settings', [
         'as' => 'dashboard.settings',
-        'uses' => 'DashboardController@settings',
+        'uses' => 'AdminController@settings',
+    ]);
+
+    Route::get('/archive/search', [
+        'as' => 'dashboard.archive.search',
+        'uses' => 'DashboardController@search',
     ]);
 
     Route::group(['prefix' => '/libraries'], function () {
@@ -73,6 +87,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
         Route::post('/{library_id}/remove', [
             'as' => 'dashboard.libraries.remove',
             'uses' => 'LibraryController@remove'
+        ]);
+
+        Route::post('/requestaccess', [
+            'as' => 'dashboard.libraries.requestaccessfrombook',
+            'uses' => 'LibraryController@requestAccessFromBook'
         ]);
 
         Route::group(['prefix' => '/{library_id}/books'], function () {

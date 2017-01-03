@@ -1,9 +1,5 @@
 @extends('layouts.dashboard')
 
-@section('head')
-    <link rel="stylesheet" href="{{ asset('assets/resources/datatables/dataTables.bootstrap.css') }}">
-@endsection
-
 @section('pagetitle')
     Books
     <small>Showing all user's books</small>
@@ -56,17 +52,17 @@
                                 <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    @if( App\Book::userCan('view', $user->id, $library->id, $book->id ) )
+                                    @if( \eLibrary\Book::userCan('view', $user->id, $library->id, $book->id ) )
                                     <li>
                                         <a href="{{ route('dashboard.libraries.books.view', ['library_id' => $library->id, 'book_id' => $book->id]) }}">View</a>
                                     </li>
                                     @endif
-                                    @if( App\Book::userCan('edit', $user->id, $library->id, $book->id ) )
+                                    @if( \eLibrary\Book::userCan('edit', $user->id, $library->id, $book->id ) )
                                     <li>
                                         <a href="{{ route('dashboard.libraries.books.edit', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Edit</a>
                                     </li>
                                      @endif
-                                     @if( App\Book::userCan('delete', $user->id, $library->id, $book->id ) )
+                                     @if( \eLibrary\Book::userCan('delete', $user->id, $library->id, $book->id ) )
                                     <li>
                                         <a class="text-red" href="{{ route('dashboard.libraries.books.delete', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Delete</a>
                                     </li>
@@ -77,14 +73,6 @@
                     </tr>
                     @endforeach
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Title</th>
-                        <th class="text-center">Genre</th>
-                        <th class="text-center">Uploaded</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
             <!-- /.box-body -->
@@ -92,27 +80,5 @@
         <!-- /.box -->
     </div>
 </div>
-@endsection
 
-@section('footer')
-    <script src="{{ asset('assets/resources/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/resources/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script>
-        (function ( $ ) {
-            $('#booksTable').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "aoColumns": [
-                    null,
-                    null,
-                    null,
-                    { "bSortable": false }
-                ]
-            });
-        })(jQuery)
-    </script>
 @endsection

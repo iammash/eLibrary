@@ -58,7 +58,7 @@
                     <!-- Messages: style can be found in dropdown.less-->
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <a href="{{ route('dashboard.profile') }}" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ asset('assets/images/user2-160x160.jpg') }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ Auth::user()->firstname }}</span>
                         </a>
@@ -96,19 +96,25 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{ asset('assets/images/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                    <a href="{{ route('dashboard.profile') }}">
+                        <img style="max-width: 55px;" src="{{ asset('assets/images/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                    </a>
                 </div>
                 <div class="pull-left info">
                     <p>{{ Auth::user()->firstname }}</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    @if( Auth::user()->isAdmin() )
+                        <a href="{{ route('dashboard.profile') }}"><i class="fa fa-circle text-success"></i> Admin </a>
+                    @else
+                        <a href="{{ route('dashboard.profile') }}"><i class="fa fa-circle text-success"></i> Regular User</a>
+                    @endif
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
+            <form action="{{ route('dashboard.archive.search') }}" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ \Illuminate\Support\Facades\Input::get('q') }}">
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
                 </div>
@@ -127,14 +133,32 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+                        <li class="{!! (\Route::is('dashboard.libraries.new') ? 'active' : '') !!}">
+                            <a href="{{ route('dashboard.libraries.new') }}"><i class="fa fa-circle-o"></i> Add New Library</a>
+                        </li>
                         <li class="{!! (\Route::is('dashboard.libraries.index') ? 'active' : '') !!}">
                             <a href="{{ route('dashboard.libraries.index') }}"><i class="fa fa-circle-o"></i> List Libraries</a>
                         </li>
+
                     </ul>
                 </li>
-                <li class="header">OTHER</li>
-                <li {!! (\Route::is('dashboard.settings') ? 'class="active"' : '') !!}><a href="#"><i class="fa fa-circle-o text-red"></i>
-                        <span>Settings</span></a></li>
+                <li {!! (\Route::is('dashboard.books') ? 'class="active"' : '') !!}>
+                    <a href="{{ route("dashboard.books") }}">
+                        <i class="fa fa-book"></i> <span>Books</span>
+                    </a>
+                </li>
+                @if(Auth::user()->isAdmin())
+                    <li class="header">ADMINISTRATION</li>
+                    <li {!! (\Route::is('dashboard.users') ? 'class="active"' : '') !!}>
+                        <a href="{{ route("dashboard.users") }}" >
+                            <i class="fa fa-circle-o text-red"></i> <span>Users</span>
+                        </a>
+                    </li>
+                    <li {!! (\Route::is('dashboard.settings') ? 'class="active"' : '') !!}><a href="#"><i class="fa fa-circle-o text-red"></i>
+                            <span>Settings</span></a></li>
+
+                @endif
+
             </ul>
         </section>
         <!-- /.sidebar -->

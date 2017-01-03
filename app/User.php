@@ -83,4 +83,39 @@ class User extends Authenticatable
         return (int)$this->is_admin === 1;
     }
 
+    /**
+     * If the user has access to the given book.
+     *
+     * @param $book
+     * @return bool
+     */
+    public function hasMembershipAccessToBook( $book )
+    {
+        if( is_numeric( $book ) ) {
+            $book_id = $book;
+        } else {
+            $book_id = $book->id;
+        }
+
+        return ((LibraryMembership::join('books', 'user_library.library_id', '=', 'books.library_id')
+            ->where('user_library.user_id', '=', $this->id )
+            ->whereIn('user_library.access', ['R','RW','RWD','MANAGER','OWNER'])
+            ->where('books.id', '=', $book_id)->count()) > 0 || $this->isAdmin() );
+
+    }
+
+    public function hasMembershipAccessToBookRequested( $book )
+    {
+        if( is_numeric( $book ) ) {
+            $book_id = $book;
+        } else {
+            $book_id = $book->id;
+        }
+
+        return ((LibraryMembership::join('books', 'user_library.library_id', '=', 'books.library_id')
+                ->where('user_library.user_id', '=', $this->id )
+                ->where('user_library.access', '=', 'REQUESTED')
+                ->where('books.id', '=', $book_id)->count()) > 0 );
+    }
+
 }
