@@ -114,6 +114,51 @@
             </div>
         </div>
     </div>
+    @if( \eLibrary\Library::userCan('everything', $user->id, $library->id))
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box">
+                    <div class="box-header">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="box-title">Members</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @include('dashboard.libraries.parts.members', ['users' => $members])
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box">
+                    <div class="box-header">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="box-title">Requests</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @include('dashboard.libraries.parts.requests', ['users' => $requests])
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+    @endif
 
 @endsection
 

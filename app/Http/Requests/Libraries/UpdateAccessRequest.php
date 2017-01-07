@@ -4,9 +4,8 @@ namespace eLibrary\Http\Requests\Libraries;
 
 use eLibrary\Http\Requests\Request;
 use eLibrary\Library;
-use eLibrary\User;
 
-class ReqAccessRequest extends Request
+class UpdateAccessRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,8 @@ class ReqAccessRequest extends Request
      */
     public function authorize()
     {
-        return \Auth::check();
+        $library_id = $this->request->get('library_id');
+        return (\Auth::check() && Library::userCan( 'everything', \Auth::user()->id, $library_id ));
     }
 
     /**
@@ -39,7 +39,8 @@ class ReqAccessRequest extends Request
     public function rules()
     {
         return [
-            'book_id'        => 'numeric|exists:books,id',
+            'library_id'     => 'numeric|exists:libraries,id',
+            'user_id'        => 'numeric|exists:users,id',
         ];
     }
 }

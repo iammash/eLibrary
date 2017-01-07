@@ -134,13 +134,13 @@ class Book extends \Eloquent
      * @param $search_query
      * @return \Illuminate\Database\Query\Builder
      */
-    public static function search( $search_query )
+    public static function search($search_query)
     {
         $search_query = explode(' ', $search_query);
-        $query = \DB::table('books')->where('title', 'LIKE', '%'.$search_query[0].'%');
-        if(count($search_query)>1){
-            for($i = 1; $i < count($search_query); $i++){
-                $query->orWhere('title', 'LIKE', '%'.$search_query[$i].'%');
+        $query = \DB::table('books')->where('title', 'LIKE', '%' . $search_query[0] . '%');
+        if (count($search_query) > 1) {
+            for ($i = 1; $i < count($search_query); $i++) {
+                $query->orWhere('title', 'LIKE', '%' . $search_query[$i] . '%');
             }
         }
         return $query;
@@ -278,7 +278,7 @@ class Book extends \Eloquent
             ->join('books', 'user_library.user_id', '=', 'books.user_id')
             ->where('user_library.user_id', '=', $user_id);
 
-        if( $library_id > 0 ) {
+        if ($library_id > 0) {
             $query->where('user_library.library_id', '=', $library_id);
         }
 

@@ -154,9 +154,6 @@
                             <i class="fa fa-circle-o text-red"></i> <span>Users</span>
                         </a>
                     </li>
-                    <li {!! (\Route::is('dashboard.settings') ? 'class="active"' : '') !!}><a href="#"><i class="fa fa-circle-o text-red"></i>
-                            <span>Settings</span></a></li>
-
                 @endif
 
             </ul>
@@ -229,8 +226,6 @@
 <script src="{{ asset('assets/resources/jQuery/jQuery-2.2.0.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ asset('assets/resources/iCheck/icheck.min.js') }}"></script>
-<!-- Genral js -->
-<script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('assets/resources/bootstrap/js/bootstrap.min.js') }}" ></script>
 <!-- SlimScroll -->

@@ -94,6 +94,16 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
             'uses' => 'LibraryController@requestAccessFromBook'
         ]);
 
+        Route::post('/approveaccess', [
+            'as' => 'dashboard.libraries.approveaccess',
+            'uses' => 'LibraryController@approveAccess'
+        ]);
+
+        Route::post('/restrictaccess', [
+            'as' => 'dashboard.libraries.restrictaccess',
+            'uses' => 'LibraryController@restrictAccess'
+        ]);
+
         Route::group(['prefix' => '/{library_id}/books'], function () {
 
             Route::get('/', [

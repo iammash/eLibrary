@@ -6,6 +6,7 @@ use eLibrary\Book;
 use eLibrary\Http\Requests;
 use eLibrary\Library;
 use eLibrary\LibraryMembership;
+use eLibrary\User;
 
 class LibraryController extends AuthenticatedController
 {
@@ -37,6 +38,11 @@ class LibraryController extends AuthenticatedController
         $data['books']   = $data['library']->books();
         $data['member_since'] = $membership->created_at;
         $data['access'] = $membership->access;
+        $data['members'] = User::join('user_library', 'users.id', '=', 'user_library.user_id')
+            ->where('user_library.library_id','=',$library_id)
+            ->whereNotIn('user_library.access', [Library::ACCESS_MANAGER,Library::ACCESS_OWNER,Library::ACCESS_REQUESTED])
+            ->get();
+        $data['requests'] = $data['library']->users()->where('user_library.access', '=', 'REQUESTED')->get();
 
         //dd($data['books']->get()->first()->id);
 
@@ -199,6 +205,63 @@ class LibraryController extends AuthenticatedController
                 'message' => 'User has access to the book already.'
             ]));
         }
+    }
+
+    /**
+     * @param Requests\Libraries\UpdateAccessRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approveAccess(Requests\Libraries\UpdateAccessRequest $request) {
+
+        $user_id = $request->get('user_id');
+        $libr_id = $request->get('library_id');
+
+        $pending_membership = LibraryMembership::where('user_id', '=', $user_id )
+            ->where('library_id', '=', $libr_id)
+            ->first();
+
+        if( null !== $pending_membership ) {
+            $pending_membership->access = Library::ACCESS_READ;
+            $pending_membership->save();
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'success',
+                'message' => 'Membership has been approved successfully.'
+            ]));
+
+        } else {
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'danger',
+                'message' => 'Error happened while approving user membership.'
+            ]));
+        }
+
+    }
+
+    public function restrictAccess(Requests\Libraries\UpdateAccessRequest $request) {
+
+        $user_id = $request->get('user_id');
+        $libr_id = $request->get('library_id');
+
+        $existing_membership = LibraryMembership::where('user_id', '=', $user_id )
+            ->where('library_id', '=', $libr_id)
+            ->first();
+
+        if( null !== $existing_membership ) {
+
+            $existing_membership->forceDelete();
+
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'success',
+                'message' => 'Member has been removed successfully.'
+            ]));
+
+        } else {
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'danger',
+                'message' => 'Error happened while restricting user membership.'
+            ]));
+        }
+
     }
 
     /**

@@ -2,26 +2,20 @@
 
 namespace eLibrary\Http\Controllers;
 
-use eLibrary\Book;
-use Illuminate\Http\Request;
-
-use eLibrary\Http\Requests;
-use Illuminate\Support\Facades\Input;
+use eLibrary\User;
 
 class AdminController extends AuthenticatedController
 {
 
-    public function books()
+    /**
+     * @return $this
+     */
+    public function users()
     {
         $data = array();
         $data['user'] = $this->user;
-        $search_str   = Input::get('q');
-        if( null === $search_str ) {
-            $data['books'] = Book::paginate(20);
-        } else {
-            $data['books'] = Book::search($search_str)->paginate(20);
-        }
-        return view('dashboard.index')->with($data);
+        $data['users'] = User::where('id', '<>', $this->user->id)->get();
+        return view('dashboard.users.index')->with($data);
     }
 
     public function settings()

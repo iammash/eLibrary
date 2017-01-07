@@ -20,6 +20,7 @@ class Library extends \Eloquent
     const ACCESS_DELETE    = 'RWD';
     const ACCESS_MANAGER   = 'MANAGER';
     const ACCESS_OWNER     = 'OWNER';
+    const ACCESS_REQUESTED = 'REQUESTED';
 
 
     /**
