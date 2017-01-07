@@ -56,7 +56,7 @@ class Book extends \Eloquent
      * @var array
      */
     protected $fillable = [
-        'title', 'genre_id', 'cover_image', 'isbn', 'publisher', 'file', 'publish_date', 'description', 'user_id',
+        'title', 'genre_id', 'cover_image', 'isbn', 'publisher', 'file_size', 'file', 'publish_date', 'description', 'user_id', 'library_id',
     ];
 
     /**

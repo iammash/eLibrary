@@ -21,7 +21,7 @@
     $book_publisher    = old('book_publisher');
     $book_publish_date = old('book_publish_date');
     $book_genre        = old('book_genre');
-    $route_name        = route('dashboard.libraries.books.create');
+    $route_name        = route('dashboard.libraries.books.create', ['library_id' => $library->id]);
     ?>
 @endif
 

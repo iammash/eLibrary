@@ -8,7 +8,7 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('dashboard.books.index') }}">Books</a></li>
+        <li><a href="{{ route('dashboard.libraries.index', ['library_id' => $library->id]) }}">{{ $library->name }}</a></li>
         <li class="active">Book Add</li>
     </ol>
 @endsection

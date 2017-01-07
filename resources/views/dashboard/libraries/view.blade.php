@@ -89,7 +89,20 @@
                 <!-- /.box-header -->
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Books</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="box-title">Books</h3>
+                            </div>
+                            @if(\eLibrary\Book::userCan('create', $library->id, $user->id))
+                            <div class="col-sm-6">
+                                <a class="pull-right link-black"
+                                   href="{{ route('dashboard.libraries.books.add', ['library_id' => $library->id]) }}">
+                                    <i class="fa fa-upload"></i>
+                                    UPLOAD BOOK
+                                </a>
+                            </div>
+                            @endif
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
