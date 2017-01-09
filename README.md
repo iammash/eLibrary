@@ -33,6 +33,11 @@ Migrate the database, make sure you have correct setup in ```.env```
 php artisan migrate
 ```
 
+**[Optional]** Install the demo data (user: dg@darkog.com, pass: 123456)
+``` 
+php artisan db:seed
+```
+
 ### Requirements
 
 ##### In order to install this script you need web server with PHP & MySQL and also installed composer.
@@ -57,3 +62,7 @@ sudo chmod +x /bin/composer
 * OpenSource
 * Not Heavily tested
 * Contributions welcome
+
+
+### Author
+* [Darko Gjorgjijoski](http://github.com/gdarko)
