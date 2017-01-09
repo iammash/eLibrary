@@ -118,4 +118,34 @@ class User extends Authenticatable
                 ->where('books.id', '=', $book_id)->count()) > 0 );
     }
 
+
+    public static function removeCompletely( $user_id ) {
+
+        $user = User::find( $user_id );
+        if( null !== $user ) {
+
+            //Remove books
+            $books = Book::where('user_id','=',$user->id)->get();
+            if( null !== $books && $books->count() > 0 ){
+                foreach( $books as $book ) {
+                    $book->removeCompletely();
+                }
+            }
+            //Remove memberships
+            LibraryMembership::where('user_id', '=', $user->id)->delete();
+
+            //Remove libraries
+            $libraries = Library::join('user_library', 'libraries.id', '=', 'user_library.library_id')
+                ->whereIn('user_library.access', [Library::ACCESS_OWNER, Library::ACCESS_MANAGER])
+                ->where('user_library.user_id', '=', $user->id)->select('libraries.*')->get();
+            if( null !== $libraries && $libraries->count() > 0 ) {
+                foreach($libraries as $library) {
+                    $library->removeCompletely();
+                }
+            }
+
+            self::destroy( $user->id );
+        }
+    }
+
 }

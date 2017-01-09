@@ -106,6 +106,16 @@ class Library extends \Eloquent
         return '';
     }
 
+    public function removeCompletely() {
+        $books = Book::where('library_id', '=', $this->id)->get();
+        if( null !== $books && $books->count() > 0 ) {
+            foreach($books as $book) {
+                $book->removeCompletely();
+            }
+        }
+        $this->delete();
+    }
+
     /**
      * Authorize user based on the roles
      *

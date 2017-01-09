@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div>
     <table class="table table-stripped table-bordered">
         <thead>
             <tr>
@@ -28,10 +28,14 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="">Edit</a>
+                                <a class="btn btn-info btn-xs" href="">Manage</a>
                             </li>
                             <li>
-                                <a href="" style="color: red;">Delete</a>
+                                <form action="{{ route('dashboard.users.deleteuser') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" value="{{ $user->id }}" name="user_id">
+                                    <button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Are you sure you want to delete this member?')" href="" style="color: red;">Delete</button>
+                                </form>
                             </li>
                         </ul>
                     </div>
