@@ -93,7 +93,7 @@
                             <div class="col-sm-6">
                                 <h3 class="box-title">Books</h3>
                             </div>
-                            @if(\eLibrary\Book::userCan('create', $library->id, $user->id))
+                            @if(\eLibrary\Book::userCan('create', $user->id, $library->id))
                             <div class="col-sm-6">
                                 <a class="pull-right link-black"
                                    href="{{ route('dashboard.libraries.books.add', ['library_id' => $library->id]) }}">

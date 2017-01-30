@@ -296,9 +296,7 @@ class Book extends \Eloquent
             $query->where('books.id', '=', $book_id);
         }
 
-        if (!$query->exists()) {
-            return false;
-        }
+		//dd('here')
 
         if ($doWhat === 'view') {
             return $query->where('user_library.access', '=', Library::ACCESS_READ)

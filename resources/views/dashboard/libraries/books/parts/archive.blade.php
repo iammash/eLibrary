@@ -15,7 +15,7 @@
         @foreach($books as $book)
             <tr>
                 <td>{{ $book->title }}</td>
-                <td>{{ $book->genre_id }}</td>
+                <td>{{ \eLibrary\Genre::find($book->genre_id)->title }}</td>
                 <td>{{ $book->isbn }}</td>
                 <td>{{ $book->publish_date }}</td>
                 <td width="80px">

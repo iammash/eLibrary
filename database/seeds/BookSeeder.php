@@ -81,7 +81,6 @@ class BookSeeder extends Seeder
 
 
 		Book::createBook( self::getDemoDataDirectory('239492349212.pdf'), [
-			'id' => 6,
 			'title' => 'Discrete Mathematics and its applications',
 			'genre_id' => 5,
 			'isbn' => '9780073383095',
