@@ -13,9 +13,18 @@ Opensource project based on Laravel 5
 
 ##### See demo [here](http://elibrary.apps.darkog.com/), login with the credentials listed [here](https://github.com/gdarko/eLibrary/blob/master/database/seeds/UserSeeder.php)
 
+## Requirements
+
+##### In order to install this script you need web server with PHP & MySQL and also installed composer.
+
+* Composer, see [how to install composer](https://github.com/gdarko/eLibrary#composer-install).
+* PHP >= 5.6
+* MySQL Database
+* git (optional)
+
 ## Installation
 
-#####Clone the git repository
+#####Clone the git repository or alternatively download it directly from there
 ```
 git clone https://github.com/gdarko/eLibrary.git
 ```
@@ -50,14 +59,6 @@ php artisan migrate
 ``` 
 php artisan db:seed
 ```
-
-## Requirements
-
-##### In order to install this script you need web server with PHP & MySQL and also installed composer.
-
-* Composer
-* PHP >= 5.6
-* MySQL Database
 
 ## Composer Install
 ``` 
