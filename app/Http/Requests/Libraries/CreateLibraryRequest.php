@@ -6,7 +6,7 @@ use eLibrary\Http\Requests\Request;
 use eLibrary\Library;
 use eLibrary\User;
 
-class ReqAccessRequest extends Request
+class CreateLibraryRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

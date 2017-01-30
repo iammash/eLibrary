@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('pagetitle')
-    View Library
+    {{ $library->name }}
 @endsection
 
 @section('breadcrumbs')

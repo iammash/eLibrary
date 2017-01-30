@@ -50,10 +50,16 @@ class BooksController extends AuthenticatedController
     {
         $genres = Genre::all();
         $user = $this->user;
-        //TODO: Access control needed for library. Not every user can access every library.
+
+		if(!Library::userCan('edit', $this->user->id, $library_id)){
+			return redirect()->back()->with('form_response', json_encode([
+				'type'    => 'warning',
+				'message' => 'You are not authorized to edit this book.',
+			]));
+		}
+
         $library = Library::find( $library_id );
         $book = Book::where( 'id', '=', $book_id )
-            ->where('user_id', '=', $this->user->id)
             ->where('library_id', '=', $library_id)
             ->first();
         return view('dashboard.libraries.books.edit', compact('library', 'book', 'genres', 'user'));
@@ -67,10 +73,16 @@ class BooksController extends AuthenticatedController
      */
     public function view( $library_id, $book_id )
     {
-        //TODO: Access control needed for library. Not every user can access every library.
+
+		if(!Book::userCan('edit', $this->user->id, $library_id, $book_id)){
+			return redirect()->back()->with('form_response', json_encode([
+				'type'    => 'warning',
+				'message' => 'You are not authorized to view this book.',
+			]));
+		}
+
         $library = Library::find( $library_id );
         $book = Book::where( 'id', '=', $book_id )
-            ->where('user_id', '=', $this->user->id)
             ->where('library_id', '=', $library_id)
             ->first();
         return view('dashboard.libraries.books.view', compact('library', 'book'));
@@ -89,7 +101,13 @@ class BooksController extends AuthenticatedController
             ->where('library_id', '=', $library_id)
             ->first();
 
-        //TODO: Access control needed for library. Not every user can access every library.
+
+		if(!Book::userCan('edit', $this->user->id, $library_id, $book_id)){
+			return redirect()->back()->with('form_response', json_encode([
+				'type'    => 'warning',
+				'message' => 'You are not authorized to delete this book.',
+			]));
+		}
         $library = Library::find( $library_id );
 
         $user = $this->user;

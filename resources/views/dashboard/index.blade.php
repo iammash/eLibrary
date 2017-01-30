@@ -87,7 +87,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">My Libraries Storage</span>
-                    <span class="info-box-number">{{ $user_libraries_size }}</span>
+                    <span class="info-box-number">{{ !empty($user_libraries_size) ? $user_libraries_size : '0 Bytes' }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
