@@ -41,3 +41,7 @@ hr{
     width: 81px !important;
     outline: none !important;
 }
+
+.info-box-icon .fa , .info-box-icon .ion{
+    margin-top: 20px;
+}
