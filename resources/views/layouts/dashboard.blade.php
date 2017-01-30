@@ -68,7 +68,7 @@
                                 <img src="{{ Gravatar::src( Auth::user()->email ) }}" class="img-circle" alt="User Image">
                                 <p>
                                     {{ Auth::user()->firstname }}
-                                    <small>Member since {{ Auth::user()->created_at }}</small>
+                                    <small>Member since {{ Auth::user()->created_at->diffForHumans() }}</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
