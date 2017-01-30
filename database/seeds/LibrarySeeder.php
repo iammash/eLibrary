@@ -32,7 +32,7 @@ class LibrarySeeder extends Seeder
 		Library::create([
 			'id'   => 3,
 			'name' => "Goran's library",
-			'description' => 'Personal library from my studies.'
+			'description' => 'Personal library from to keep and organize my files during the studies'
 		]);
 
         LibraryMembership::create([

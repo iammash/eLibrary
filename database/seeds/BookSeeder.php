@@ -89,7 +89,7 @@ class BookSeeder extends Seeder
 			'isbn' => '9780073383095',
 			'publisher' => 'Kenneth H Rosen',
 			'publish_date' => '05/06/2007',
-			'description' => 'A discrete mathematics course has more than one purpose. Students should learn a particular set of mathematical facts and how to apply them; more importantly, such a course should teach students how to think logically and mathematically. To achieve these goals, this text stresses mathematical reasoning and the different ways problems are solved. Five important themes are interwoven in this text: mathematical reasoning, combinatorial analysis, discrete structures, algorithmic thinking, and applications and modeling. A successful discrete mathematics course should carefully blend and balance all five themes.',
+			'description' => 'A discrete mathematics course has more than one purpose. Students should learn a particular set of mathematical facts and how to apply them;',
 			'file' => '239492349212.pdf',
 			'library_id' => 3,
 			'user_id' => 5,
