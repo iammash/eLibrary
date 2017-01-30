@@ -80,8 +80,6 @@ class BookSeeder extends Seeder
         ], Book::FILE_COPY);
 
 
-        //from here
-
 		Book::createBook( self::getDemoDataDirectory('239492349212.pdf'), [
 			'id' => 6,
 			'title' => 'Discrete Mathematics and its applications',

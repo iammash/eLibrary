@@ -41,37 +41,43 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($books as $book)
-                    <tr>
-                        <td>{{$book->title}}</td>
-                        <td class="text-center">{{$book->genre()->getResults()->title}}</td>
-                        <td class="text-center">{{$book->created_at}}</td>
-                        <td class="text-center" width="10%">
-                            <div class="dropdown">
-                                <button class="btn btn-flat btn-info dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
-                                <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @if( \eLibrary\Book::userCan('view', $user->id, $library->id, $book->id ) )
-                                    <li>
-                                        <a href="{{ route('dashboard.libraries.books.view', ['library_id' => $library->id, 'book_id' => $book->id]) }}">View</a>
-                                    </li>
-                                    @endif
-                                    @if( \eLibrary\Book::userCan('edit', $user->id, $library->id, $book->id ) )
-                                    <li>
-                                        <a href="{{ route('dashboard.libraries.books.edit', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Edit</a>
-                                    </li>
-                                     @endif
-                                     @if( \eLibrary\Book::userCan('delete', $user->id, $library->id, $book->id ) )
-                                    <li>
-                                        <a class="text-red" href="{{ route('dashboard.libraries.books.delete', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Delete</a>
-                                    </li>
-                                     @endif
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @if($books->count() > 0)
+                        @foreach($books as $book)
+                        <tr>
+                            <td>{{$book->title}}</td>
+                            <td class="text-center">{{$book->genre()->getResults()->title}}</td>
+                            <td class="text-center">{{$book->created_at}}</td>
+                            <td class="text-center" width="10%">
+                                <div class="dropdown">
+                                    <button class="btn btn-flat btn-info dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
+                                    <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        @if( \eLibrary\Book::userCan('view', $user->id, $library->id, $book->id ) )
+                                        <li>
+                                            <a href="{{ route('dashboard.libraries.books.view', ['library_id' => $library->id, 'book_id' => $book->id]) }}">View</a>
+                                        </li>
+                                        @endif
+                                        @if( \eLibrary\Book::userCan('edit', $user->id, $library->id, $book->id ) )
+                                        <li>
+                                            <a href="{{ route('dashboard.libraries.books.edit', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Edit</a>
+                                        </li>
+                                         @endif
+                                         @if( \eLibrary\Book::userCan('delete', $user->id, $library->id, $book->id ) )
+                                        <li>
+                                            <a class="text-red" href="{{ route('dashboard.libraries.books.delete', ['library_id' => $library->id, 'book_id' => $book->id]) }}">Delete</a>
+                                        </li>
+                                         @endif
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="4">No books found in this library, please add some!</td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>
