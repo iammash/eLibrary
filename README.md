@@ -76,7 +76,7 @@ sudo chmod +x /bin/composer
 * Contributions welcome
 
 ## Author
-Developed by [Darko Gjorgjijoski](http://github.com/gdarko) as a project work for the **Digital Libraries** course at **Faculty of Computer Science and Engineering** in Skopje, Macedonia.
+Developed by [Darko Gjorgjijoski](http://github.com/gdarko) as a project work for the **Digital Libraries** course at **[Faculty of Computer Science and Engineering](http://www.finki.ukim.mk/en)** in Skopje, Macedonia.
 
 ## License
 [The MIT License](https://opensource.org/licenses/MIT)
