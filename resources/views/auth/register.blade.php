@@ -93,6 +93,16 @@
                             </button>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <p>
+                                    Already have account? Please login
+                                    <a class="" href="{{ url('/') }}">here</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

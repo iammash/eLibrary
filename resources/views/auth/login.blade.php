@@ -45,15 +45,25 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember"> Remember Me
-                            </label>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="remember"> Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn btn-link pull-right" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
                         </div>
                     </div>
 
                     <button type="submit" class="btn">Sign in!</button>
-                    <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                    <div class="text-center">
+                        <p>
+                            If you dont have account you can register
+                            <a class="" href="{{ url('/register') }}">here</a>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
