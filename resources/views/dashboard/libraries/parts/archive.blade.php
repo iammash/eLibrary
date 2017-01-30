@@ -12,7 +12,7 @@
         <tr>
             <td>{{ $library->name }}</td>
             <td class="text-center">{{ $library->description }}</td>
-            <td class="text-center">{{ $library->created_at }}</td>
+            <td class="text-center">{{ $library->created_at->diffForHumans() }}</td>
             <td class="text-center" width="10%">
                 <div class="dropdown">
                     <button class="btn btn-flat btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cogs"></i>
