@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.45 on 2016-12-03.
+ * Generated for Laravel 5.2.45 on 2017-01-30.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1108,7 +1108,7 @@ namespace {
          */
         public static function handle($input, $output = null){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::handle($input, $output);
+            return \eLibrary\Console\Kernel::handle($input, $output);
         }
         
         /**
@@ -1121,7 +1121,7 @@ namespace {
          */
         public static function terminate($input, $status){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::terminate($input, $status);
+            \eLibrary\Console\Kernel::terminate($input, $status);
         }
         
         /**
@@ -1133,7 +1133,7 @@ namespace {
          */
         public static function registerCommand($command){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::registerCommand($command);
+            \eLibrary\Console\Kernel::registerCommand($command);
         }
         
         /**
@@ -1146,7 +1146,7 @@ namespace {
          */
         public static function call($command, $parameters = array()){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::call($command, $parameters);
+            return \eLibrary\Console\Kernel::call($command, $parameters);
         }
         
         /**
@@ -1159,7 +1159,7 @@ namespace {
          */
         public static function queue($command, $parameters = array()){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::queue($command, $parameters);
+            \eLibrary\Console\Kernel::queue($command, $parameters);
         }
         
         /**
@@ -1170,7 +1170,7 @@ namespace {
          */
         public static function all(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::all();
+            return \eLibrary\Console\Kernel::all();
         }
         
         /**
@@ -1181,7 +1181,7 @@ namespace {
          */
         public static function output(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::output();
+            return \eLibrary\Console\Kernel::output();
         }
         
         /**
@@ -1192,7 +1192,7 @@ namespace {
          */
         public static function bootstrap(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::bootstrap();
+            \eLibrary\Console\Kernel::bootstrap();
         }
         
     }
@@ -1339,7 +1339,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \eLibrary\User|null 
          * @static 
          */
         public static function user(){
@@ -1443,7 +1443,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User 
+         * @return \eLibrary\User 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1548,7 +1548,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \eLibrary\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1590,7 +1590,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \eLibrary\User 
          * @static 
          */
         public static function getLastAttempted(){
@@ -1630,7 +1630,7 @@ namespace {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User 
+         * @return \eLibrary\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */
@@ -13382,4 +13382,6 @@ namespace {
 
 
 }
+
+
 

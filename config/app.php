@@ -161,8 +161,9 @@ return [
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Kim\Activity\ActivityServiceProvider::class,
+		Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
 
-    ],
+	],
 
     /*
     |--------------------------------------------------------------------------
@@ -208,7 +209,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Activity' => Kim\Activity\ActivityFacade::class,
-
+		'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
     ],
 
 ];

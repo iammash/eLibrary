@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "kim/activity": "^1.1"
+        "kim/activity": "^1.1",
+	"thomaswelton/laravel-gravatar": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

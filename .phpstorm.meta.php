@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-12-03.
+    * Generated on 2017-01-30.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -16,9 +16,9 @@ namespace PHPSTORM_META {
             'url' instanceof \Illuminate\Routing\UrlGenerator,
             'redirect' instanceof \Illuminate\Routing\Redirector,
             'Illuminate\Contracts\Routing\ResponseFactory' instanceof \Illuminate\Routing\ResponseFactory,
-            'Illuminate\Contracts\Http\Kernel' instanceof \App\Http\Kernel,
-            'Illuminate\Contracts\Console\Kernel' instanceof \App\Console\Kernel,
-            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \App\Exceptions\Handler,
+            'Illuminate\Contracts\Http\Kernel' instanceof \eLibrary\Http\Kernel,
+            'Illuminate\Contracts\Console\Kernel' instanceof \eLibrary\Console\Kernel,
+            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \eLibrary\Exceptions\Handler,
             'auth' instanceof \Illuminate\Auth\AuthManager,
             'auth.driver' instanceof \Illuminate\Auth\SessionGuard,
             'Illuminate\Contracts\Auth\Access\Gate' instanceof \Illuminate\Auth\Access\Gate,
@@ -126,9 +126,9 @@ namespace PHPSTORM_META {
             'url' instanceof \Illuminate\Routing\UrlGenerator,
             'redirect' instanceof \Illuminate\Routing\Redirector,
             'Illuminate\Contracts\Routing\ResponseFactory' instanceof \Illuminate\Routing\ResponseFactory,
-            'Illuminate\Contracts\Http\Kernel' instanceof \App\Http\Kernel,
-            'Illuminate\Contracts\Console\Kernel' instanceof \App\Console\Kernel,
-            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \App\Exceptions\Handler,
+            'Illuminate\Contracts\Http\Kernel' instanceof \eLibrary\Http\Kernel,
+            'Illuminate\Contracts\Console\Kernel' instanceof \eLibrary\Console\Kernel,
+            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \eLibrary\Exceptions\Handler,
             'auth' instanceof \Illuminate\Auth\AuthManager,
             'auth.driver' instanceof \Illuminate\Auth\SessionGuard,
             'Illuminate\Contracts\Auth\Access\Gate' instanceof \Illuminate\Auth\Access\Gate,
@@ -236,9 +236,9 @@ namespace PHPSTORM_META {
             'url' instanceof \Illuminate\Routing\UrlGenerator,
             'redirect' instanceof \Illuminate\Routing\Redirector,
             'Illuminate\Contracts\Routing\ResponseFactory' instanceof \Illuminate\Routing\ResponseFactory,
-            'Illuminate\Contracts\Http\Kernel' instanceof \App\Http\Kernel,
-            'Illuminate\Contracts\Console\Kernel' instanceof \App\Console\Kernel,
-            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \App\Exceptions\Handler,
+            'Illuminate\Contracts\Http\Kernel' instanceof \eLibrary\Http\Kernel,
+            'Illuminate\Contracts\Console\Kernel' instanceof \eLibrary\Console\Kernel,
+            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \eLibrary\Exceptions\Handler,
             'auth' instanceof \Illuminate\Auth\AuthManager,
             'auth.driver' instanceof \Illuminate\Auth\SessionGuard,
             'Illuminate\Contracts\Auth\Access\Gate' instanceof \Illuminate\Auth\Access\Gate,
@@ -346,9 +346,9 @@ namespace PHPSTORM_META {
             'url' instanceof \Illuminate\Routing\UrlGenerator,
             'redirect' instanceof \Illuminate\Routing\Redirector,
             'Illuminate\Contracts\Routing\ResponseFactory' instanceof \Illuminate\Routing\ResponseFactory,
-            'Illuminate\Contracts\Http\Kernel' instanceof \App\Http\Kernel,
-            'Illuminate\Contracts\Console\Kernel' instanceof \App\Console\Kernel,
-            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \App\Exceptions\Handler,
+            'Illuminate\Contracts\Http\Kernel' instanceof \eLibrary\Http\Kernel,
+            'Illuminate\Contracts\Console\Kernel' instanceof \eLibrary\Console\Kernel,
+            'Illuminate\Contracts\Debug\ExceptionHandler' instanceof \eLibrary\Exceptions\Handler,
             'auth' instanceof \Illuminate\Auth\AuthManager,
             'auth.driver' instanceof \Illuminate\Auth\SessionGuard,
             'Illuminate\Contracts\Auth\Access\Gate' instanceof \Illuminate\Auth\Access\Gate,

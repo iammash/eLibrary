@@ -59,16 +59,16 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="{{ route('dashboard.profile') }}" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('assets/images/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                            <img src="{{ Gravatar::src( Auth::user()->email ) }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ Auth::user()->firstname }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="{{ asset('assets/images/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                <img src="{{ Gravatar::src( Auth::user()->email ) }}" class="img-circle" alt="User Image">
                                 <p>
                                     {{ Auth::user()->firstname }}
-                                    <small>Member since {{ Auth::user()->created_at }}</small>
+                                    <small>Member since {{ Auth::user()->created_at->diffForHumans() }}</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -97,7 +97,7 @@
             <div class="user-panel">
                 <div class="pull-left image">
                     <a href="{{ route('dashboard.profile') }}">
-                        <img style="max-width: 55px;" src="{{ asset('assets/images/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                        <img style="max-width: 55px;" src="{{ Gravatar::src( Auth::user()->email ) }}" class="img-circle" alt="User Image">
                     </a>
                 </div>
                 <div class="pull-left info">
