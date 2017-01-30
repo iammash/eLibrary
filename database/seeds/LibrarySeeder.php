@@ -29,6 +29,12 @@ class LibrarySeeder extends Seeder
             'description' => 'eLibrary created for students in our computer science class.'
         ]);
 
+		Library::create([
+			'id'   => 3,
+			'name' => "Goran's library",
+			'description' => 'Personal library from my studies.'
+		]);
+
         LibraryMembership::create([
             'user_id' => 1,
             'library_id' => 1,
@@ -52,6 +58,18 @@ class LibrarySeeder extends Seeder
             'library_id' => 2,
             'access' => Library::ACCESS_MANAGER
         ]);
+
+		LibraryMembership::create([
+			'user_id' => 5,
+			'library_id' => 3,
+			'access' => Library::ACCESS_OWNER
+		]);
+
+		LibraryMembership::create([
+			'user_id' => 4,
+			'library_id' => 3,
+			'access' => Library::ACCESS_READ
+		]);
 
     }
 }
