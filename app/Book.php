@@ -131,6 +131,16 @@ class Book extends \Eloquent
     }
 
     /**
+     * Removes book with its file
+     */
+    public function removeCompletely()
+    {
+        $path = self::getBookPath($this->user_id, $this->file);
+        File::delete( $path );
+        $this->delete();
+    }
+
+    /**
      * @param $search_query
      * @return \Illuminate\Database\Query\Builder
      */

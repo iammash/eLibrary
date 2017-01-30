@@ -27,6 +27,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
         'uses' => 'AdminController@users',
     ]);
 
+    Route::post('/users/deleteuser', [
+        'as' => 'dashboard.users.deleteuser',
+        'uses' => 'AdminController@deleteuser',
+    ]);
+
     Route::get('/profile', [
         'as' => 'dashboard.profile',
         'uses' => 'ProfileController@profile',
@@ -102,6 +107,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => [ 'auth' ] ], function (
         Route::post('/restrictaccess', [
             'as' => 'dashboard.libraries.restrictaccess',
             'uses' => 'LibraryController@restrictAccess'
+        ]);
+
+        Route::post('/addtolibrary', [
+            'as' => 'dashboard.libraries.addtolibrary',
+            'uses' => 'LibraryController@addtolibrary'
         ]);
 
         Route::group(['prefix' => '/{library_id}/books'], function () {

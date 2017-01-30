@@ -125,6 +125,12 @@
                             <div class="col-sm-6">
                                 <h3 class="box-title">Members</h3>
                             </div>
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#addMember">
+                                    <i class="fa fa-plus"></i>
+                                    Add Member
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -161,6 +167,8 @@
     @endif
 
 @endsection
+
+@include('dashboard.libraries.modals.addmember', ['non_member_users' => $non_member_users, 'library' => $library])
 
 
 @section('footer')

@@ -44,6 +44,8 @@ class LibraryController extends AuthenticatedController
             ->get();
         $data['requests'] = $data['library']->users()->where('user_library.access', '=', 'REQUESTED')->get();
 
+        $data['non_member_users'] = LibraryMembership::availableForMembership( $library_id );
+
         //dd($data['books']->get()->first()->id);
 
         return view('dashboard.libraries.view')->with($data);
@@ -261,7 +263,39 @@ class LibraryController extends AuthenticatedController
                 'message' => 'Error happened while restricting user membership.'
             ]));
         }
+    }
 
+
+    /**
+     * @param Requests\Libraries\UpdateAccessRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addtolibrary( Requests\Libraries\UpdateAccessRequest $request ) {
+
+        $user_id = $request->get('user_id');
+        $libr_id = $request->get('library_id');
+        $access  = $request->get('access');
+
+        $existing_membership = LibraryMembership::where('user_id', '=', $user_id )
+            ->where('library_id', '=', $libr_id)
+            ->first();
+
+        if( null === $existing_membership ) {
+            LibraryMembership::create([
+                'library_id' => $libr_id,
+                'user_id' => $user_id,
+                'access' => $access,
+            ]);
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'info',
+                'message' => 'User has been added to the library!'
+            ]));
+        } else {
+            return redirect()->back()->with('form_response', json_encode([
+                'type' => 'danger',
+                'message' => 'User has access to the library already.'
+            ]));
+        }
     }
 
     /**
