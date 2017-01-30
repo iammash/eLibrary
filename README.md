@@ -1,4 +1,5 @@
 # eLibrary - Online library management
+Opensource project based on Laravel 5
 
 ## Features
 * Management of multiple Libraries
@@ -69,12 +70,14 @@ sudo mv composer.phar /bin/composer
 sudo chmod +x /bin/composer
 ```
 
-
 ## Project
 * OpenSource
 * Not Heavily tested
 * Contributions welcome
 
-
 ## Author
-* [Darko Gjorgjijoski](http://github.com/gdarko)
+Developed by [Darko Gjorgjijoski](http://github.com/gdarko) as a project work for the **Digital Libraries** course at **Faculty of Computer Science and Engineering** in Skopje, Macedonia.
+
+## License
+[The MIT License](https://opensource.org/licenses/MIT)
+
