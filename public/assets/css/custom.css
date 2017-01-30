@@ -33,3 +33,11 @@ hr{
 .pull-right-without-spacing{
     float:right !important;
 }
+
+.clear-btn{
+    border: none !important;
+    background: white !important;
+    text-align: center !important;
+    width: 81px !important;
+    outline: none !important;
+}
